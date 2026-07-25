@@ -1,6 +1,6 @@
 # cubest
 
-[English](README.md) · **简体中文** · [Русский](README.ru.md) · [Español](README.es.md) · [日本語](README.ja.md)
+[English](README.md) · **简体中文** · [Español](README.es.md) · [हिन्दी](README.hi.md) · [العربية](README.ar.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [ਪੰਜਾਬੀ](README.pa.md)
 
 > **AI 代理每次仓库扫描节省 7–22 倍 token。** 单遍 OLAP 聚合器，把任意文本流
 > —— 代码、日志、CSV、JSONL、XML、HTML、SDD 制品 —— 折叠成紧凑的多维立方体。
@@ -208,6 +208,18 @@ Apache License 2.0 —— 见 [LICENSE](LICENSE) 和 [NOTICE](NOTICE)。
 
 欢迎问题和 PR。对于实质性更改,请先开启讨论。
 所有贡献均在 Apache 2.0 许可证下接受。
+
+## 💖 赞助
+
+如果 cubest 在您日常的代理工作流中节省了 token,或缩短了故障处理时间,
+请考虑成为赞助者 —— 资金将直接用于路线图项目(t-digest、流式 CSV、
+代理片段)以及基础设施:
+
+- **GitHub Sponsors** → https://github.com/sponsors/BaryshevS
+- **Open Collective** → https://opencollective.com/baryshevsv
+
+每月 3 美元就能让项目持续运转。赞助者在 issue 处理中享有优先权,
+并会在发布说明中获得署名。
 
 ## ⭐ 收藏此仓库
 

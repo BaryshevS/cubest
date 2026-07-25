@@ -1,6 +1,6 @@
 # cubest
 
-**English** · [简体中文](README.zh-CN.md) · [Русский](README.ru.md) · [Español](README.es.md) · [日本語](README.ja.md)
+**English** · [简体中文](README.zh-CN.md) · [Español](README.es.md) · [हिन्दी](README.hi.md) · [العربية](README.ar.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [ਪੰਜਾਬੀ](README.pa.md)
 
 > **7-22× fewer tokens per tool response** (measured across 7 real scenarios,
 > reproducible via [`examples/run_all.sh`](examples/run_all.sh)). A single-pass
@@ -444,6 +444,18 @@ See [ROADMAP.md](ROADMAP.md). Highlights:
 
 Issues and PRs welcome. For substantive changes please open a discussion
 first. All contributions are accepted under the Apache 2.0 license.
+
+## 💖 Support
+
+If cubest saves you tokens in daily agent workflows or shortens an incident,
+consider sponsoring — it directly funds roadmap items (t-digest, streaming
+CSV, agent snippets) and infra:
+
+- **GitHub Sponsors** → https://github.com/sponsors/BaryshevS
+- **Open Collective** → https://opencollective.com/baryshevsv
+
+Even $3/month keeps the lights on. Sponsors get priority on issue triage
+and are credited in release notes.
 
 ## ⭐ Star this repo
 

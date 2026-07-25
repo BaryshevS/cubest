@@ -1,6 +1,6 @@
 # cubest — универсальный single-pass OLAP-индексатор
 
-[English](README.md) · [简体中文](README.zh-CN.md) · **Русский** · [Español](README.es.md) · [日本語](README.ja.md)
+[English](README.md) · [简体中文](README.zh-CN.md) · [Español](README.es.md) · [हिन्दी](README.hi.md) · [العربية](README.ar.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · **Русский** · [日本語](README.ja.md) · [ਪੰਜਾਬੀ](README.pa.md)
 
 > **7–22× меньше токенов на запрос AI-агенту.** Single-pass OLAP-агрегатор
 > для любого текстового потока — код, логи, CSV, JSONL, XML, HTML,
@@ -610,8 +610,7 @@ measures:
   с avg(request_time), sum(bytes), max(request_time). Работает прямо с
   `.log.gz`, потоково, без распаковки на диск.
 - **CDN-логи** (Cloudflare/Fastly/CloudFront TSV): формат-файла × размер ×
-  устройство × регион с avg upstream_response_time — прямой аналог
-  perl-скриптов, использующих OLAP-модуль (`cdn_stat.pl`, `cdn_stat_litresFE.pl`).
+  устройство × регион с avg upstream_response_time.
 - **Application logs** (JSON, syslog): уровень × сервис × endpoint,
   распределение ошибок за окно времени.
 - **Kubernetes / Docker**: pod × container × log-level, top причины падений.
@@ -1160,3 +1159,16 @@ observability/AIOps в целом, а не измеренный эффект о�
 - [Knowledge Graphs for Codebases: A Complete Guide to Graphify (Emelia)](https://emelia.io/hub/knowledge-graph-graphify-guide)
 - [10 Best Graphify Alternatives (Knolli)](https://www.knolli.ai/post/graphify-alternatives)
 - [Graphify + code-review-graph (dev.to)](https://dev.to/mir_mursalin_ankur/graphify-code-review-graph-build-a-self-updating-knowledge-graph-for-claude-code-and-other-ai-j1m)
+
+## 💖 Поддержка
+
+Если cubest экономит тебе токены в ежедневных workflow с агентами или
+сокращает разбор инцидента — поддержи проект. Донаты идут напрямую
+в пункты roadmap (t-digest, потоковый CSV, снипеты для агентов) и
+инфраструктуру:
+
+- **GitHub Sponsors** → https://github.com/sponsors/BaryshevS
+- **Open Collective** → https://opencollective.com/baryshevsv
+
+Даже 3 доллара в месяц помогают держать проект живым. Спонсоры
+получают приоритет в разборе issues и упоминание в release notes.

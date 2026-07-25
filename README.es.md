@@ -1,6 +1,6 @@
 # cubest
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [Русский](README.ru.md) · **Español** · [日本語](README.ja.md)
+[English](README.md) · [简体中文](README.zh-CN.md) · **Español** · [हिन्दी](README.hi.md) · [العربية](README.ar.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [日本語](README.ja.md) · [ਪੰਜਾਬੀ](README.pa.md)
 
 > **7–22× menos tokens por escaneo de repositorio para agentes de IA.**
 > Agregador OLAP de un solo paso que convierte cualquier flujo de texto
@@ -85,6 +85,20 @@ Apache License 2.0 — ver [LICENSE](LICENSE) y [NOTICE](NOTICE).
 debe incluir el archivo NOTICE preservando la URL upstream:
 
 > https://github.com/BaryshevS/cubest
+
+## 💖 Apoyo
+
+Si cubest te ahorra tokens en tus flujos diarios con agentes o acorta
+un incidente, considera patrocinar el proyecto — la financiación va
+directamente al roadmap (t-digest, CSV en streaming, snippets para
+agentes) y a la infraestructura:
+
+- **GitHub Sponsors** → https://github.com/sponsors/BaryshevS
+- **Open Collective** → https://opencollective.com/baryshevsv
+
+Incluso 3 $/mes mantienen el proyecto en marcha. Los patrocinadores
+tienen prioridad en la clasificación de issues y aparecen en las notas
+de cada versión.
 
 ## ⭐ Dale una estrella
 

@@ -1,6 +1,6 @@
 # cubest
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [Русский](README.ru.md) · [Español](README.es.md) · **日本語**
+[English](README.md) · [简体中文](README.zh-CN.md) · [Español](README.es.md) · [हिन्दी](README.hi.md) · [العربية](README.ar.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · [Русский](README.ru.md) · **日本語** · [ਪੰਜਾਬੀ](README.pa.md)
 
 > **AI エージェントのリポジトリスキャンあたり 7–22 倍のトークン節約。**
 > あらゆるテキストストリーム(コード、ログ、CSV、JSONL、XML、HTML、
@@ -89,6 +89,19 @@ Apache License 2.0 — [LICENSE](LICENSE) と [NOTICE](NOTICE) を参照。
 内容)を含め、以下のアップストリーム URL を保持する必要があります:
 
 > https://github.com/BaryshevS/cubest
+
+## 💖 サポート
+
+cubest がエージェントの日常ワークフローでトークンを節約したり、
+インシデントを短縮したりする場合は、スポンサーになることをご検討ください。
+資金はロードマップの項目(t-digest、ストリーミング CSV、エージェント用
+スニペット)とインフラに直接使われます:
+
+- **GitHub Sponsors** → https://github.com/sponsors/BaryshevS
+- **Open Collective** → https://opencollective.com/baryshevsv
+
+月額 3 ドルでもプロジェクトの継続を支えます。スポンサーは issue の
+トリアージで優先され、リリースノートにクレジットされます。
 
 ## ⭐ このリポジトリにスターを
 
