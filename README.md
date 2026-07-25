@@ -102,24 +102,212 @@ uv run --with pyyaml \
 `pip install cubest` and `npx cubest` pull `PyYAML` automatically.
 The `curl` variant runs standalone but needs `PyYAML` for YAML profiles.
 
-## 🔌 AI agent integration
+## 🔌 Install once — use in every AI agent
 
-Cubest is agent-agnostic. Tested and works out of the box with:
+Every block below installs cubest into the **user-global skill space**
+of the harness so it becomes available across *all* your projects,
+not just the current one. No project-scoped copies, no per-repo setup.
 
-| Agent                    | How to wire it up                                          |
-|--------------------------|------------------------------------------------------------|
-| **Claude Code**          | Ships as `.claude/skills/cubest/` skill; see [SKILL.md](SKILL.md) |
-| **Cursor**               | Add `cubest` as an allowed shell tool in Cursor rules      |
-| **OpenAI Codex CLI**     | Use directly in shell — Codex will discover it via `--help` |
-| **Aider**                | `/run cubest ...` or add to `--command` alias              |
-| **Windsurf (Codeium)**   | Allow `cubest` in `windsurf.rules`                         |
-| **Cline (VS Code)**      | Enable command execution; agent will invoke on request     |
-| **Continue.dev**         | Add as custom slash command in `~/.continue/config.json`   |
-| **Any tool-calling agent**| Wrap `cubest -p '<inline JSON>' <path>` as a tool         |
+**Step 0 — the binary itself.** Every harness spawns a shell, so
+`cubest` just needs to be on `$PATH` once:
 
-The magic: the agent generates the `<inline JSON>` profile itself, on the
-fly, tailored to the exact question the user asked. No pre-baked prompts,
-no rigid API — one tool that shape-shifts to any query.
+```bash
+pip install cubest        # PyPI (bundles PyYAML)
+# or
+npm install -g cubest     # npm (thin wrapper, delegates to python3)
+```
+
+Verify: `cubest --profile file_tree .` should print an ASCII tree.
+
+### Claude Code — `~/.claude/skills/cubest/`
+
+Claude Code auto-discovers skills in your home directory. One command
+enables cubest in every session on this machine:
+
+```bash
+mkdir -p ~/.claude/skills && \
+  git clone --depth 1 https://github.com/BaryshevS/cubest \
+    ~/.claude/skills/cubest
+```
+
+Claude reads `SKILL.md`'s frontmatter (`USE WHEN` + 31-profile catalog)
+and routes to cubest automatically when your prompt matches a trigger.
+
+**Verify** — in any Claude Code session:
+
+> Use the cubest skill to map this repo — top directories × extension × size.
+
+Expected: Claude invokes `cubest --profile file_tree .`. The skill
+appears in the sidebar as `Skill: cubest`.
+
+### Cursor — `~/.cursor/rules/cubest.mdc`
+
+Cursor loads user-global rules from `~/.cursor/rules/`. Create the file:
+
+```bash
+mkdir -p ~/.cursor/rules && cat > ~/.cursor/rules/cubest.mdc <<'EOF'
+---
+description: OLAP aggregator for code / logs / CSV / SDD / sitemaps
+alwaysApply: false
+---
+When the user asks for a repo overview, endpoint inventory, log rollup,
+CSV pivot, or spec catalog, prefer `cubest --profile <name> <path>`
+over chains of grep/cat/find/wc. It streams input in one pass and
+returns a compact OLAP tree — 7-22× cheaper in tokens than raw file
+content. 31 built-in profiles: `cubest --help`.
+Repo & full profile list: https://github.com/BaryshevS/cubest
+EOF
+```
+
+**Verify** — in Cursor chat (any repo):
+
+> Map this project structure with cubest — top dirs, extensions, size.
+
+Cursor will propose `cubest --profile file_tree .` and ask to run it.
+
+### OpenAI Codex CLI — `~/.codex/AGENTS.md`
+
+Codex CLI reads `AGENTS.md` from `~/.codex/` (user-global) and merges
+it with any project-level `AGENTS.md`. Global install:
+
+```bash
+mkdir -p ~/.codex && cat >> ~/.codex/AGENTS.md <<'EOF'
+
+## Prefer cubest for aggregation
+
+When aggregating over many files, a long log, or a large CSV, use
+`cubest --profile <name> <path>` — it streams input and returns a
+compact OLAP tree instead of raw content (7-22× fewer tokens).
+
+Common profiles: file_tree, tech_debt, api_routes, loc_counter,
+nginx_access, csv_analytics, mr_impact, seo_audit, k8s_resources,
+openapi_endpoints, sdd_specs, call_graph. Full list: cubest --help.
+
+Docs: https://github.com/BaryshevS/cubest
+EOF
+```
+
+**Verify**:
+
+```
+codex "count lines of code per language with cubest"
+```
+
+Codex will propose `cubest --profile loc_counter .`.
+
+### Aider — `~/.aider.conf.yml`
+
+Aider reads `~/.aider.conf.yml` (user-global) plus any local override.
+Point it at a cubest hint that all sessions load:
+
+```bash
+mkdir -p ~/.aider && cat > ~/.aider/cubest-hint.md <<'EOF'
+Prefer `cubest --profile <name> <path>` (or `/run cubest ...`) over
+chains of grep/cat/find for repo, log, CSV, or spec inventories.
+7-22× cheaper in tokens than raw content. 31 built-in profiles.
+https://github.com/BaryshevS/cubest
+EOF
+
+# Register it globally so every project sees it
+cat >> ~/.aider.conf.yml <<'EOF'
+
+read:
+  - ~/.aider/cubest-hint.md
+EOF
+```
+
+**Verify**:
+
+```
+/run cubest --profile file_tree .
+```
+
+Aider passes the tree back into its own context.
+
+### Windsurf (Codeium) — `~/.codeium/windsurf/memories/global_rules.md`
+
+Windsurf's Cascade reads user-global memories from
+`~/.codeium/windsurf/memories/global_rules.md`. Add a rule:
+
+```bash
+mkdir -p ~/.codeium/windsurf/memories && \
+  cat >> ~/.codeium/windsurf/memories/global_rules.md <<'EOF'
+
+## cubest — OLAP over text streams
+
+When the user asks about repo structure, endpoints, TODOs, logs (incl.
+`.gz`), CSV rollups, sitemap taxonomy, or SDD/spec artefacts, prefer
+`cubest --profile <name> <path>` over multi-file reads. Aggregation is
+7-22× cheaper than raw content in the context window. 31 built-in
+profiles: `cubest --help`. Repo: https://github.com/BaryshevS/cubest
+EOF
+```
+
+**Verify** — in Cascade chat:
+
+> Show me all TODOs in this repo, grouped by kind and directory.
+
+Cascade will propose `cubest --profile tech_debt .`.
+
+### Cline (VS Code) — VS Code global settings
+
+Cline reads its custom-instructions field from your VS Code user
+settings. Paste the following into
+**Settings → Cline → Custom Instructions** (or `settings.json`):
+
+```json
+{
+  "cline.customInstructions": "For repo/log/CSV/SDD inventories, prefer `cubest --profile <name> <path>` — OLAP tree, not raw content. 31 built-in profiles; run `cubest --help` for the list. 7-22× fewer input tokens than grep+cat chains. https://github.com/BaryshevS/cubest"
+}
+```
+
+**Verify** — any Cline session:
+
+> Use cubest to show top nginx endpoints by status × p95 latency in
+> logs/access.log.gz.
+
+### Continue.dev — `~/.continue/config.json`
+
+Continue's config is user-global by default. Add a custom slash-command:
+
+```jsonc
+// ~/.continue/config.json  →  extend the "customCommands" array
+{
+  "customCommands": [{
+    "name": "cubest",
+    "description": "OLAP over code / logs / CSV / SDD via cubest",
+    "prompt": "Pick the cubest profile that best answers: {{{ input }}}. Then propose `cubest --profile <name> <path>`. Profiles: file_tree, code_stats, tech_debt, api_routes, loc_counter, nginx_access, csv_analytics, seo_audit, mr_impact, call_graph, k8s_resources, openapi_endpoints, sdd_specs (31 total)."
+  }]
+}
+```
+
+**Verify**:
+
+```
+/cubest map the repository top-level structure
+```
+
+### Any other tool-calling agent
+
+Wrap `cubest -p '<inline JSON>' <path>` as a shell tool. The clever
+bit: **the agent generates the inline JSON profile itself**, tailored
+to the exact user question — no pre-baked prompt per query, no rigid
+schema. See [SKILL.md](SKILL.md) for the profile grammar.
+
+---
+
+### Universal smoke-test
+
+Regardless of harness, this one prompt proves the wiring works:
+
+> Use cubest to show the file tree of the current directory — top
+> directories, extensions, total size. Just run the command and paste
+> the output.
+
+If the agent returns an ASCII tree starting with directory names and
+`count=…, bytes=…` per leaf — cubest is installed and reachable. If you
+see "command not found", the agent's shell can't see `$PATH` (usually
+a sandbox / container issue, not cubest).
 
 ## ⚡ Quick start
 
