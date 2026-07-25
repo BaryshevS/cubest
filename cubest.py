@@ -34,6 +34,15 @@ try:
 except ImportError:
     HAS_YAML = False
 
+# Optional exact-percentile backend. When installed (`pip install tdigest`)
+# it replaces reservoir sampling for p50/p90/p95/p99 measures — a lot more
+# accurate on long-tailed distributions at the cost of an extra dependency.
+try:
+    from tdigest import TDigest as _TDigest
+    HAS_TDIGEST = True
+except ImportError:
+    HAS_TDIGEST = False
+
 
 # ---------------------------------------------------------------------------
 # OLAP cube
@@ -1778,8 +1787,43 @@ def get_profiles_dir() -> Path:
     return p if p.exists() else script_dir
 
 
+def diff_cubes(a_path: str, b_path: str) -> str:
+    """Compare two cubest JSON outputs, print leaves that changed.
+
+    Output: markdown table `path | before | after | delta`. Useful in CI
+    to catch regressions like "TODO count grew on this PR".
+    """
+    a = json.loads(Path(a_path).read_text())
+    b = json.loads(Path(b_path).read_text())
+
+    def flatten(node, prefix=""):
+        out = {}
+        for k, v in node.items():
+            if k in ("_meta", "_meta_avg") or not isinstance(v, dict):
+                continue
+            key = f"{prefix}>{k}" if prefix else str(k)
+            has_children = any(
+                isinstance(x, dict) and n not in ("_meta", "_meta_avg")
+                for n, x in v.items()
+            )
+            if has_children:
+                out.update(flatten(v, key))
+            else:
+                out[key] = v.get("_meta", {}).get("count", 0)
+        return out
+
+    fa, fb = flatten(a), flatten(b)
+    keys = sorted(set(fa) | set(fb))
+    lines = ["| path | before | after | delta |", "|---|---:|---:|---:|"]
+    for k in keys:
+        va, vb = fa.get(k, 0), fb.get(k, 0)
+        if va != vb:
+            lines.append(f"| {k} | {va} | {vb} | {vb-va:+d} |")
+    return "\n".join(lines) if len(lines) > 2 else "no changes"
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Dynindex — single-pass OLAP indexer")
+    parser = argparse.ArgumentParser(description="cubest — single-pass OLAP aggregator")
     parser.add_argument("--profile", "-p", default="file_tree",
                         help="Built-in name, path, inline JSON/YAML, or '-' for stdin")
     parser.add_argument("path", nargs="?", default=".",
@@ -1789,7 +1833,14 @@ def main():
                         help="File with one path per line ('-' for stdin). "
                              "Ideal for MR/PR workflows: "
                              "`git diff --name-only origin/main | cubest -F - -p loc_counter`")
+    parser.add_argument("--diff", nargs=2, metavar=("BEFORE", "AFTER"),
+                        help="Compare two cubest JSON outputs — print leaves that "
+                             "changed as a markdown table (for CI regressions).")
     args = parser.parse_args()
+
+    if args.diff:
+        print(diff_cubes(*args.diff))
+        return
 
     profiles_dir = get_profiles_dir()
     try:
