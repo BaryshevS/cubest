@@ -1,17 +1,71 @@
 ---
 name: cubest
 description: >-
-  USE WHEN you need a structured slice of a large codebase, log stream, CSV
-  export, HTML crawl or SDD artefact catalog WITHOUT reading raw files into
-  the context window. Returns a compact OLAP tree / breadcrumb / CSV / JSON
-  / Mermaid / GraphViz / ECharts HTML instead of dozens of `cat` and `grep`
-  responses. Measured 7-22x fewer tokens per tool response on real
-  scenarios (see examples/). Works with Claude Code, Cursor, Codex, Aider,
-  Windsurf, Cline, Continue.dev.
-  Triggers: "map the codebase", "show project structure", "how many where",
-  "all endpoints", "all TODOs", "count LOC", "nginx log analysis", "MR
-  impact", "SEO audit", "call graph", "disk usage", "sitemap taxonomy",
-  "csv rollup", "map repo", "log aggregation", "onboard this repo".
+  USE WHEN you need a structured OLAP slice of a large codebase, log
+  stream (including multi-GB `.gz`), CSV export, sitemap or HTML crawl,
+  or an SDD artefact catalog — WITHOUT reading raw file bodies into the
+  context window. Single-pass aggregator: streams input, folds records
+  into an in-memory cube by user-picked dimensions × measures (count /
+  sum / avg / min / max / reservoir-sampled p50/p90/p95/p99), then
+  prints one compact artefact in 13 formats: tree / flat (breadcrumb) /
+  compact / CSV / md_table / YAML / JSON / XML / GraphViz DOT / Mermaid
+  / PlantUML / draw.io XML / interactive ECharts HTML (sunburst,
+  treemap, tree, sankey, graph, bar). **Measured 7-22× fewer tokens per
+  tool response** across 7 reproducible scenarios (see `examples/`).
+  Ships 31 built-in profiles, inline JSON/YAML, `--files-from` for
+  `git diff` MR/PR preflight, and `--diff` for CI regression checks
+  against a baseline cube. Streaming holds constant memory
+  (ΔRSS <200 KiB per 500k lines) — 10 TB of logs is I/O-bound, not RAM.
+
+  Concrete jobs it solves in one call:
+  - Onboard a monorepo: file tree × extension × LOC, function inventory
+    and approximate call graph across 15 languages
+    (`file_tree`, `code_atlas`, `loc_counter`, `call_graph`).
+  - PR/MR preflight from `git diff --name-only`: impact map, LOC delta,
+    TODO diff; `--diff BEFORE AFTER` compares two cubest JSON dumps and
+    emits a Markdown table of leaves that changed — drop-in CI gate
+    (`mr_impact`, `tech_debt`, see `examples/ci/`).
+  - SRE / on-call log rollup: nginx `access.log` by URL section ×
+    status × method × p95 latency, gz-streamed at constant memory
+    (`nginx_access`, `nginx_cdn_covers`, `frontend_geoip`,
+    `jsonl_events`).
+  - SEO / content audit: HTML `title/desc/H1/canonical/schema.org`
+    coverage, H1–H6 semantic tree, sitemap.xml URL taxonomy → ECharts
+    treemap or sunburst
+    (`seo_audit`, `seo_semantic_tree`, `sitemap_map`).
+  - CSV / analytics pivot: GA4, Yandex Metrica, Google Ads, Meta Ads
+    exports rolled up by campaign × device × p90 (`csv_analytics`).
+  - Docs & SDD catalog: markdown headings, checklists (done vs todo),
+    YAML frontmatter, spec / PRD / ADR inventory, phase × status ×
+    owner (`doc_structure`, `sdd_specs`, `sdd_checklist`,
+    `spec_status`).
+  - Infra & API surface: Kubernetes manifests by kind × namespace ×
+    name, OpenAPI method × path, XML / YAML top-level keys
+    (`k8s_resources`, `openapi_endpoints`, `xml_tags`, `yaml_keys`).
+  - Codebase health: TODO / FIXME / HACK hotspots, disk usage by
+    top-level folder, git-log activity by author × month, Python
+    imports, React / Vue components, SQL functions
+    (`tech_debt`, `disk_usage`, `git_log_activity`, `imports`,
+    `react_components`, `sql_functions`, `api_routes`).
+  - Claude Code catalog: subagents (`agents_inventory`) and skills
+    (`skills_inventory`) inventory.
+
+  NOT the right tool for: a single-file lookup (use `Read` / `Grep`),
+  fetching source lines rather than aggregates, or trees under ~10
+  files. Works with Claude Code, Cursor, Codex, Aider, Windsurf, Cline,
+  Continue.dev — any AI coding agent billed per input token.
+
+  Triggers: "map the codebase", "onboard this repo", "show project
+  structure", "how many where", "all endpoints", "all TODOs", "count
+  LOC", "call graph", "PR impact map", "MR preflight", "CI regression
+  check", "diff two cubes", "nginx 5xx breakdown", "top endpoints by
+  p95", "latency percentiles", "gzipped log rollup", "SEO audit",
+  "sitemap taxonomy", "OpenGraph coverage", "H1-H6 semantic tree",
+  "CSV pivot", "campaign × device rollup", "GA4 rollup", "K8s
+  manifests inventory", "OpenAPI method × path", "SDD spec catalog",
+  "checklist progress", "phase × status × owner", "ADR inventory",
+  "disk usage by folder", "tech-debt hotspots", "git activity by
+  author", "agents inventory", "skills inventory".
 ---
 
 # cubest — Single-pass OLAP indexer
@@ -212,8 +266,10 @@ Useful for disk-usage: "show size only for folders that contain TODO files".
 ```
 --profile / -p    built-in name | file path | inline JSON/YAML | '-' (stdin)
 --files-from / -F stdin/file list of paths (MR/PR workflow with git diff)
+--diff BEFORE AFTER  compare two cubest JSON dumps → md-table of changed
+                     leaves (drop-in CI regression gate; see examples/ci/)
 --verbose / -v    print "# scanned N files, M records" on stderr
-path              scan root (default '.')
+path              scan root or a single file (auto-detects `.gz`)
 ```
 
 ## Install
