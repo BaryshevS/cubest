@@ -1,0 +1,51 @@
+name: loc_counter
+description: "Lines of code by language and top-level directory. Alternative to scc/tokei/cloc for quick estimates. Splits code vs comments vs blanks."
+scan:
+  include:
+    - "*.py"
+    - "*.js"
+    - "*.ts"
+    - "*.jsx"
+    - "*.tsx"
+    - "*.go"
+    - "*.rs"
+    - "*.java"
+    - "*.rb"
+    - "*.php"
+    - "*.kt"
+    - "*.swift"
+    - "*.c"
+    - "*.h"
+    - "*.cpp"
+    - "*.hpp"
+    - "*.cs"
+    - "*.sh"
+    - "*.sql"
+    - "*.yaml"
+    - "*.yml"
+    - "*.json"
+    - "*.md"
+  exclude: [".git/", "node_modules/", "vendor/", "dist/", "build/",
+            "target/", "*.min.*", "*.lock", "__pycache__/"]
+dimensions: [ext, top]
+measures:
+  - name: lines
+    type: count
+  - name: blanks
+    type: sum
+    field: blank
+  - name: comments
+    type: sum
+    field: comment
+  - name: bytes
+    type: sum
+    field: length
+extract:
+  - type: preset
+    preset: lines
+output:
+  format: flat
+  top_n: 50
+  min_count: 1
+  human_bytes: true
+  max_lines: 80

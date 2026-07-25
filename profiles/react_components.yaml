@@ -1,0 +1,15 @@
+name: react_components
+description: "React components by type (function/class) and file"
+scan:
+  include: ["*.jsx", "*.tsx", "*.js", "*.ts"]
+  exclude: ["node_modules/*", "*.test.*", "*.spec.*"]
+dimensions: [type, file]
+measures:
+  - name: count
+    type: count
+extract:
+  - type: regex
+    pattern: '(?P<type>function|const|class)\s+(?P<name>[A-Z][a-zA-Z0-9]*)\s*[=(]'
+output:
+  format: tree
+  min_count: 1

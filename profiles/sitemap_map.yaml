@@ -1,0 +1,20 @@
+name: sitemap_map
+description: "Sitemap.xml URL inventory: host × section (up to 3 URL segments) with priority/lastmod distribution. Supports both `<urlset>` (regular sitemaps) and `<sitemapindex>` (index files)."
+scan:
+  include: ["sitemap*.xml", "*sitemap*.xml", "*.sitemap.xml"]
+dimensions: [host, section_1, section_2]
+measures:
+  - name: urls
+    type: count
+  - name: priority_avg
+    type: avg
+    field: priority
+extract:
+  - type: preset
+    preset: sitemap
+output:
+  format: echarts
+  chart_type: treemap
+  top_n: 100
+  min_count: 1
+  title: "Site URL taxonomy"

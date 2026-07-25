@@ -1,0 +1,31 @@
+name: seo_audit
+description: "SEO audit of a folder of HTML pages: title/description length distribution, missing/duplicate H1, canonical presence, JSON-LD schema. Feed with a site crawl or static export."
+scan:
+  include: ["*.html", "*.htm", "*.xhtml"]
+  exclude: [".git/", "node_modules/", "dist/", "build/"]
+dimensions: [lang, twitter_card]
+measures:
+  - name: pages
+    type: count
+  - name: title_avg
+    type: avg
+    field: title_len
+  - name: title_max
+    type: max
+    field: title_len
+  - name: desc_avg
+    type: avg
+    field: desc_len
+  - name: h1_total
+    type: sum
+    field: h1_count
+  - name: schema_pages
+    type: sum
+    field: has_schema
+extract:
+  - type: preset
+    preset: html_meta
+output:
+  format: md_table
+  top_n: 40
+  max_lines: 60

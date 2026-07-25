@@ -1,0 +1,21 @@
+name: xml_tags
+description: "XML/HTML/SVG/POM/AndroidManifest inventory: tag × file (top tags per document). Works out-of-the-box on any XML dialect."
+scan:
+  include: ["*.xml", "*.svg", "*.pom", "*.plist", "*.rss", "*.atom",
+            "*.wsdl", "*.xsd", "*.xhtml", "*.html", "*.htm",
+            "AndroidManifest.xml", "web.xml", "pom.xml"]
+  exclude: [".git/", "node_modules/", "target/"]
+  stream: true
+dimensions: [tag, file]
+measures:
+  - name: uses
+    type: count
+extract:
+  - type: regex
+    multiline: false
+    pattern: '<(?P<tag>[A-Za-z_][A-Za-z0-9_.:\-]*)(?:\s|>|/)'
+output:
+  format: flat
+  top_n: 40
+  min_count: 2
+  max_lines: 120

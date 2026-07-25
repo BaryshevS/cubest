@@ -1,0 +1,33 @@
+name: nginx_access
+description: "Nginx combined access log: top URL sections × HTTP status with avg duration and total bytes"
+scan:
+  include: ["access*.log*", "*.access.log*"]
+  stream: true
+dimensions: [status, method, path_root]
+measures:
+  - name: hits
+    type: count
+  - name: avg_dur
+    type: avg
+    field: duration
+  - name: bytes_total
+    type: sum
+    field: bytes
+  - name: max_dur
+    type: max
+    field: duration
+extract:
+  # Combined log format + $request_time on tail; tolerates leading
+  # "[host date]" decorator (litres/some ELB variants).
+  - type: regex
+    multiline: false
+    pattern: >-
+      (?:\[[^\]]+\]\s+)?(?P<ip>\d+\.\d+\.\d+\.\d+)\s+\S+\s+\S+\s+\[(?P<datetime>[^\]]+)\]\s+"?(?P<method>GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH)\s+/(?P<path_root>[^/?"\s]*)(?:/[^\s"?]*)?(?:\?[^\s"]*)?\s+HTTP/[\d.]+"?\s+(?P<status>\d{3})\s+(?P<bytes>\d+|-)(?:\s+"[^"]*"\s+"[^"]*")?(?:\s+"[^"]*")?(?:\s+(?P<duration>[0-9.]+|-))?
+filters:
+  - "bytes != '-'"
+output:
+  format: flat
+  top_n: 20
+  min_count: 5
+  human_bytes: true
+  max_lines: 60

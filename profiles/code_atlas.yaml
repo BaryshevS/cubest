@@ -1,0 +1,33 @@
+name: code_atlas
+description: "Multi-language code map: language × file × function (top 10 languages by extension). Python funcs get nesting (parent, depth)."
+scan:
+  include:
+    - "*.py"
+    - "*.js"
+    - "*.ts"
+    - "*.jsx"
+    - "*.tsx"
+    - "*.go"
+    - "*.rs"
+    - "*.java"
+    - "*.rb"
+    - "*.php"
+    - "*.kt"
+    - "*.swift"
+    - "*.c"
+    - "*.cpp"
+    - "*.sh"
+  exclude: [".git/", "node_modules/", "vendor/", "dist/", "build/",
+            "target/", "__pycache__/", "*.test.*", "*_test.go", "*.spec.*"]
+dimensions: [lang, file, parent, name]
+measures:
+  - name: symbols
+    type: count
+extract:
+  - type: preset
+    preset: funcs
+output:
+  format: tree
+  top_n: 20
+  min_count: 1
+  max_lines: 150

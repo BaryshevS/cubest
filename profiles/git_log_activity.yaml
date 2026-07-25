@@ -1,0 +1,29 @@
+name: git_log_activity
+description: "Author × month activity from `git log --numstat --format=...` output piped as a single file. Requires a specific pretty format."
+scan:
+  include: ["*.log", "*.txt"]
+  stream: true
+dimensions: [author, month]
+measures:
+  - name: commits
+    type: count
+  - name: added
+    type: sum
+    field: added
+  - name: removed
+    type: sum
+    field: removed
+extract:
+  # Feed with:
+  #   git log --numstat --format='COMMIT|%an|%ai' --since=6.months > /tmp/gitlog.txt
+  # then parse both a COMMIT header line and numstat lines.
+  - type: regex
+    multiline: false
+    pattern: '^COMMIT\|(?P<author>[^|]+)\|(?P<month>\d{4}-\d{2})'
+  - type: regex
+    multiline: false
+    pattern: '^(?P<added>\d+)\s+(?P<removed>\d+)\s+\S+'
+output:
+  format: md_table
+  top_n: 40
+  max_lines: 60

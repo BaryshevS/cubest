@@ -1,0 +1,17 @@
+name: skills_inventory
+description: "Claude skills catalog: reads SKILL.md frontmatter → grouped by top-level dir × name"
+scan:
+  include: ["**/SKILL.md", "SKILL.md"]
+dimensions: [top, name]
+measures:
+  - name: count
+    type: count
+extract:
+  - type: preset
+    preset: md_frontmatter
+  - type: preset
+    preset: paths     # to get `top` and `name` if frontmatter is missing
+output:
+  format: flat
+  top_n: 100
+  max_lines: 150

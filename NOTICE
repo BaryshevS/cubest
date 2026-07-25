@@ -1,0 +1,27 @@
+cubest
+Copyright 2026 Sergey Baryshev
+
+This product includes software developed by Sergey Baryshev.
+
+Upstream project and documentation:
+    https://github.com/BaryshevS/cubest
+
+===========================================================================
+ATTRIBUTION REQUIREMENT (Apache 2.0 §4(d))
+
+If you redistribute this software, in whole or in part, in Source or Object
+form, in derivative works, embedded in your own products, hosted service,
+CLI wrapper, container image, IDE plugin, or otherwise, you MUST include
+this NOTICE file (or its readable contents) in at least one of:
+
+  - a NOTICE / THIRD_PARTY_NOTICES / ATTRIBUTION file shipped with your
+    distribution;
+  - your documentation (README, help pages, docs site);
+  - an "About" / "Credits" / "Powered by" screen visible to end users;
+  - the source header if the software has no user-facing surface.
+
+The attribution MUST preserve the upstream URL above, so downstream users
+can find the origin and current version.
+
+You are welcome to add your own attribution alongside this notice.
+===========================================================================

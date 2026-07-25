@@ -1,0 +1,15 @@
+name: code_stats
+description: "Classes and functions per file with average lines"
+scan:
+  include: ["*.py", "*.js", "*.ts", "*.go", "*.rs"]
+  exclude: ["node_modules/*", "vendor/*", "*_test.go"]
+dimensions: [kind, file]
+measures:
+  - name: count
+    type: count
+extract:
+  - type: preset
+    preset: funcs
+output:
+  format: tree
+  min_count: 1

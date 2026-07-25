@@ -1,0 +1,31 @@
+name: csv_analytics
+description: "Ad/analytics tabular exports (GA4/AdWords/Yandex Metrica/Facebook Ads CSV or TSV). Native CSV parser with header row auto-detect. Column names are lowercased + non-alnum → _."
+scan:
+  include: ["*.csv", "*.tsv", "*.csv.gz", "*.tsv.gz"]
+  # `csv` preset forces batch mode (needs whole file for header parsing).
+dimensions: [campaign, device]
+measures:
+  - name: rows
+    type: count
+  - name: impressions
+    type: sum
+    field: impressions
+  - name: clicks
+    type: sum
+    field: clicks
+  - name: cost
+    type: sum
+    field: cost
+  - name: cost_p95
+    type: p95
+    field: cost
+extract:
+  - type: preset
+    preset: csv        # use `tsv` for tab-separated; add `sep: ";"` for European CSV
+    # header: true     # default; can also pass explicit list: [campaign, device, ...]
+    # skip: 1          # extra rows to drop before header (e.g. GA4 report header)
+output:
+  format: flat
+  top_n: 30
+  min_count: 1
+  max_lines: 80

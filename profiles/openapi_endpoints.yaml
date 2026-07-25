@@ -1,0 +1,19 @@
+name: openapi_endpoints
+description: "OpenAPI/Swagger spec inventory: method × path (parses both YAML and JSON specs). Detects operationId if present."
+scan:
+  include: ["*openapi*.yaml", "*openapi*.yml", "*openapi*.json",
+            "*swagger*.yaml", "*swagger*.yml", "*swagger*.json"]
+dimensions: [method, path]
+measures:
+  - name: ops
+    type: count
+extract:
+  # match `  /path:` followed by `    get:` etc. within an indented paths: block.
+  - type: regex
+    multiline: true
+    pattern: '^\s{2,4}(?P<path>/[^\s:]+):\s*\n(?:^\s{4,6}(?P<method>get|post|put|delete|patch|options|head):)'
+    ignorecase: true
+output:
+  format: flat
+  top_n: 40
+  max_lines: 100

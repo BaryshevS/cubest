@@ -1,0 +1,16 @@
+name: doc_structure
+description: "Markdown headers grouped by file and level"
+scan:
+  include: ["*.md", "*.mdx"]
+  exclude: ["node_modules/*"]
+dimensions: [file, level]
+measures:
+  - name: count
+    type: count
+extract:
+  - type: preset
+    preset: headers
+filters:
+  - "level <= 3"
+output:
+  format: tree

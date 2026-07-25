@@ -1,0 +1,49 @@
+name: frontend_geoip
+description: "Frontend/CDN access log analysis with GeoIP: filter by country + UA + endpoint + status 200; group by file extension; show hits, p90(duration), avg(size). Expects log rows enriched with GeoIP fields (see README `tools/geoip_enrich.sh`). Usage example — mobile Chrome from US/CA for /pub/covers/*: `python cubest.py --profile frontend_geoip enriched.log.gz`"
+scan:
+  include: ["access*.log*", "*.enriched.log*", "cdn*.log*"]
+  stream: true
+dimensions: [ext]
+measures:
+  - name: hits
+    type: count
+  - name: p50_ms
+    type: p50
+    field: duration
+  - name: p90_ms
+    type: p90
+    field: duration
+  - name: p99_ms
+    type: p99
+    field: duration
+  - name: avg_size
+    type: avg
+    field: bytes
+  - name: bytes_total
+    type: sum
+    field: bytes
+extract:
+  # Expected enriched combined format (tab-separated tail with country code):
+  #   IP - - [datetime] "METHOD /path HTTP/x.y" status bytes "referer" "UA" duration COUNTRY REGION
+  # Adjust the regex to match your ingest schema. Country + region come from
+  # GeoIP enrichment step (see `tools/geoip_enrich.sh`).
+  - type: regex
+    multiline: false
+    pattern: >-
+      (?P<ip>\d+\.\d+\.\d+\.\d+)\s+\S+\s+\S+\s+\[(?P<datetime>[^\]]+)\]\s+"(?P<method>GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH)\s+(?P<path>/[^\s?"]+)(?:\?[^\s"]*)?\s+HTTP/[\d.]+"\s+(?P<status>\d{3})\s+(?P<bytes>\d+)\s+"[^"]*"\s+"(?P<ua>[^"]*)"\s+(?P<duration>[0-9.]+)\s+(?P<country>[A-Z]{2})(?:\s+(?P<region>[A-Z0-9\-]+))?
+  # Second rule extracts extension from path (works because iteration
+  # merges named groups into the same record when applied to same line).
+  - type: regex
+    multiline: false
+    pattern: '/pub/covers/[^\s?"]+\.(?P<ext>webp|jpg|png|avif|gif)'
+    ignorecase: true
+filters:
+  - "status == 200"
+  - "country == 'US' or country == 'CA'"
+  - "'Mobile' in ua and 'Chrome' in ua"
+  - "ext in ('webp', 'jpg', 'png', 'avif', 'gif')"
+output:
+  format: echarts
+  chart_type: bar
+  top_n: 20
+  title: "Mobile Chrome (US/CA) /pub/covers/* — 200 by ext"

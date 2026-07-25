@@ -1,0 +1,27 @@
+name: file_tree
+description: "File tree by top-level directory and extension (no content read)"
+scan:
+  include: ["*"]
+  exclude:
+    - ".git/"
+    - "node_modules/"
+    - "__pycache__/"
+    - ".venv/"
+    - "venv/"
+    - "dist/"
+    - "build/"
+    - "*.lock"
+    - "*.pyc"
+dimensions: [top, ext]
+measures:
+  - name: count
+    type: count
+  - name: bytes
+    type: sum
+    field: size
+extract:
+  - type: preset
+    preset: paths
+output:
+  format: tree
+  min_count: 1

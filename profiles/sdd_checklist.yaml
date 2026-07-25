@@ -1,0 +1,17 @@
+name: sdd_checklist
+description: "Progress across Markdown checklists (Phase 1 gates, capability preflight, acceptance tests): file × done/todo counts"
+scan:
+  include: ["*.md", "*.mdx"]
+  exclude: [".git/", "node_modules/"]
+dimensions: [state, file]
+measures:
+  - name: items
+    type: count
+extract:
+  - type: preset
+    preset: md_checklist
+output:
+  format: tree
+  top_n: 25
+  min_count: 1
+  max_lines: 80

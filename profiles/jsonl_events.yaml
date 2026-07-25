@@ -1,0 +1,19 @@
+name: jsonl_events
+description: "JSON-lines event stream (app events, ClickHouse SELECT ... FORMAT JSONEachRow, Kafka dumps): event × source with counts"
+scan:
+  include: ["*.jsonl", "*.jsonl.gz", "*.ndjson", "*.ndjson.gz"]
+  stream: true
+dimensions: [event, source]
+measures:
+  - name: rows
+    type: count
+extract:
+  - type: regex
+    multiline: false
+    pattern: >-
+      "event"\s*:\s*"(?P<event>[^"]+)"[^\n]*?"source"\s*:\s*"(?P<source>[^"]+)"
+output:
+  format: flat
+  top_n: 30
+  min_count: 1
+  max_lines: 80

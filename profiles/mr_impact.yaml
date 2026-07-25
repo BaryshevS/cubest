@@ -1,0 +1,19 @@
+name: mr_impact
+description: "MR/PR impact: distribution of changed files across top-level dir × extension with size. Feed changed files via --files-from -."
+scan:
+  include: ["*"]
+dimensions: [top, ext]
+measures:
+  - name: files
+    type: count
+  - name: bytes
+    type: sum
+    field: size
+extract:
+  - type: preset
+    preset: paths
+output:
+  format: flat
+  top_n: 20
+  human_bytes: true
+  max_lines: 40

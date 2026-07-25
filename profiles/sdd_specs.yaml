@@ -1,0 +1,19 @@
+name: sdd_specs
+description: "SDD/spec-artefact inventory via YAML frontmatter: type × status per file (skills, agents, PRDs, ADRs)"
+scan:
+  include: ["*.md", "*.mdx"]
+  exclude: [".git/", "node_modules/", "dist/"]
+dimensions: [type, status, name]
+measures:
+  - name: count
+    type: count
+extract:
+  - type: preset
+    preset: md_frontmatter
+filters:
+  # only files that had a frontmatter block
+  - "type != '---' or status != '---'"
+output:
+  format: flat
+  top_n: 40
+  max_lines: 100

@@ -1,0 +1,20 @@
+name: api_routes
+description: "FastAPI/Flask/Django endpoints by HTTP method and file"
+scan:
+  include: ["*.py"]
+  exclude: ["*test*", "venv/*", ".venv/*", "__pycache__/*"]
+dimensions: [method, file]
+measures:
+  - name: count
+    type: count
+extract:
+  - type: regex
+    pattern: |
+      @(?:app|router|blueprint)\.\s*
+      (?P<method>get|post|put|delete|patch|options|head)
+      \s*\(\s*['"](?P<route>[^'"]+)['"]
+    multiline: true
+    ignorecase: true
+output:
+  format: tree
+  top_n: 20

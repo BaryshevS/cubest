@@ -1,0 +1,16 @@
+name: tech_debt
+description: "TODO, FIXME, HACK markers grouped by type and file"
+scan:
+  include: ["*"]
+  exclude: [".git/*", "*.lock", "node_modules/*", "dist/*", "build/*"]
+dimensions: [kind, file]
+measures:
+  - name: count
+    type: count
+extract:
+  - type: regex
+    pattern: '(?P<kind>TODO|FIXME|HACK|XXX|BUG)[\s:]*(?P<text>.{0,50})'
+    ignorecase: true
+output:
+  format: tree
+  top_n: 10

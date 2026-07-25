@@ -1,0 +1,17 @@
+name: seo_semantic_tree
+description: "Semantic heading tree per page: file × H-level × title. Use to spot orphan H2/H3, missing H1s, unbalanced structure across a site. Render as sunburst/tree/treemap in ECharts."
+scan:
+  include: ["*.html", "*.htm", "*.xhtml"]
+  exclude: [".git/", "node_modules/"]
+dimensions: [file, level, title]
+measures:
+  - name: occurrences
+    type: count
+extract:
+  - type: preset
+    preset: html_headings
+output:
+  format: echarts
+  chart_type: sunburst
+  top_n: 40
+  title: "Semantic heading tree"

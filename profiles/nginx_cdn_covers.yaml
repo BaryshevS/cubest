@@ -1,0 +1,32 @@
+name: nginx_cdn_covers
+description: "CDN TSV log: /pub/c/cover_SIZE/ID.FORMAT — size × format × device with avg upstream time (port of cdn_stat.pl, no GeoIP)"
+scan:
+  include: ["*.tsv*", "*.txt*"]
+  stream: true
+dimensions: [size, format, device]
+measures:
+  - name: hits
+    type: count
+  - name: avg_dur
+    type: avg
+    field: duration
+  - name: avg_upstream
+    type: avg
+    field: upstream_response_time
+extract:
+  # Assumes tab-separated columns; picks the request cell via anchor,
+  # duration cell via the standard nginx $request_time float. `device` is
+  # derived below from the useragent match on 'Mobile'.
+  - type: regex
+    multiline: false
+    ignorecase: true
+    pattern: >-
+      GET\s+/pub/c/cover_(?P<size>\d+)/(?P<artid>\d+)\.(?P<format>webp|jpg)[^\t]*\t(?P<status>\d{3})\t(?P<duration>[0-9.]+)\t(?P<upstream_response_time>[0-9.]+|-)\t(?P<ua>[^\t]*)(?P<device>Mobile)?
+filters:
+  - "status == 200 or status == 304"
+  - "size == 330 or size == 415"
+output:
+  format: flat
+  top_n: 25
+  min_count: 3
+  max_lines: 80

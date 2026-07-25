@@ -1,0 +1,15 @@
+name: agents_inventory
+description: "Claude subagent catalog: model × name via frontmatter of agents/*.md"
+scan:
+  include: ["agents/**/*.md", "*/agents/*.md", "**/subagents/*.md"]
+dimensions: [model, name]
+measures:
+  - name: count
+    type: count
+extract:
+  - type: preset
+    preset: md_frontmatter
+output:
+  format: flat
+  top_n: 60
+  max_lines: 120

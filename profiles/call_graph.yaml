@@ -1,0 +1,19 @@
+name: call_graph
+description: "Approximate call graph: caller → callee (Python-like indent scope). Emit as GraphViz DOT. For exact AST-level graph use tree-sitter tools (Graphify)."
+scan:
+  include: ["*.py"]
+  exclude: [".git/", "node_modules/", "venv/", ".venv/", "__pycache__/",
+            "*_test.py", "tests/", "test_*.py"]
+dimensions: [caller, callee]
+measures:
+  - name: calls
+    type: count
+extract:
+  - type: preset
+    preset: calls
+filters:
+  - "caller != callee"                   # drop trivial self-loops
+output:
+  format: dot
+  top_n: 200
+  min_count: 1

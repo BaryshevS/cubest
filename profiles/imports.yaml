@@ -1,0 +1,16 @@
+name: imports
+description: "Python imports grouped by module"
+scan:
+  include: ["*.py"]
+  exclude: ["*test*", "venv/*"]
+dimensions: [module, file]
+measures:
+  - name: count
+    type: count
+extract:
+  - type: regex
+    pattern: '^(?:from|import)\s+(?P<module>[a-zA-Z_][a-zA-Z0-9_.]*)'
+  - type: regex
+    pattern: '^from\s+(?P<module>[a-zA-Z_][a-zA-Z0-9_.]*)\s+import'
+output:
+  format: compact

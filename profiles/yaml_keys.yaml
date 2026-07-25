@@ -1,0 +1,19 @@
+name: yaml_keys
+description: "Top-level YAML/JSON keys inventory (k8s manifests, docker-compose, GitHub Actions, OpenAPI, Ansible, Terraform tfvars.yaml)."
+scan:
+  include: ["*.yaml", "*.yml", "*.json"]
+  exclude: [".git/", "node_modules/", "*.lock"]
+  stream: true
+dimensions: [key, file]
+measures:
+  - name: hits
+    type: count
+extract:
+  - type: regex
+    multiline: false
+    pattern: '^(?P<key>[A-Za-z_][\w.-]*):'
+output:
+  format: flat
+  top_n: 30
+  min_count: 1
+  max_lines: 120

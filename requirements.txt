@@ -1,0 +1,20 @@
+# cubest — dependencies
+#
+# The core script (cubest.py) has ZERO required dependencies.
+# JSON profiles and all built-in presets work with just the Python 3.8+
+# standard library.
+#
+# PyYAML is only needed if you want to:
+#   - author profiles in YAML syntax (built-in profiles are all YAML);
+#   - use the `format: yaml` output;
+#   - pipe YAML profiles via stdin (`--profile -`).
+#
+# Install with pip:      pip install -r requirements.txt
+# Install with uv:       uv pip install -r requirements.txt
+# Ephemeral run (uv):    uv run --with pyyaml cubest.py --profile file_tree .
+# uv project init:       uv init --python 3.11 && uv add pyyaml
+#
+# Skip PyYAML entirely by using only JSON profiles:
+#   python3 cubest.py --profile '{"dimensions":["ext"],...}' .
+
+PyYAML>=6.0

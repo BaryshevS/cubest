@@ -1,0 +1,31 @@
+name: sql_functions
+description: "Functions defined in files that contain raw SQL. Uses content_match prefilter, then funcs preset. Grouped by lang × file × function."
+scan:
+  include:
+    - "*.py"
+    - "*.js"
+    - "*.ts"
+    - "*.go"
+    - "*.rs"
+    - "*.java"
+    - "*.rb"
+    - "*.php"
+    - "*.kt"
+  exclude: [".git/", "node_modules/", "vendor/", "dist/", "build/",
+            "*.test.*", "*_test.go", "*.spec.*"]
+  # File must contain a raw SQL verb outside a comment. Heuristic: the verb
+  # appears in a string literal after or before a SQL context word.
+  content_match:
+    - '\b(SELECT|INSERT\s+INTO|UPDATE|DELETE\s+FROM|CREATE\s+TABLE|WITH\s+\w+\s+AS)\b'
+dimensions: [lang, file, parent, name]
+measures:
+  - name: symbols
+    type: count
+extract:
+  - type: preset
+    preset: funcs
+output:
+  format: flat
+  top_n: 40
+  min_count: 1
+  max_lines: 120

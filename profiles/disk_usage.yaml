@@ -1,0 +1,29 @@
+name: disk_usage
+description: "Disk usage aggregation up to depth 2. Use dimensions=[path_1..path_N] to change the level. Optional content_match filter includes only files with matching contents."
+scan:
+  include: ["*"]
+  exclude: [".git/", "node_modules/", "__pycache__/", ".venv/", "venv/",
+            "dist/", "build/", "*.lock"]
+  # Uncomment to include only files whose content matches (regex):
+  # content_match: ["TODO", "@deprecated"]
+  # content_not:   ["generated"]
+  # content_scan_bytes: 65536   # scan only first 64KiB per file (fast pre-check)
+dimensions: [path_1, path_2]
+measures:
+  - name: files
+    type: count
+  - name: bytes
+    type: sum
+    field: size
+  - name: max_file
+    type: max
+    field: size
+extract:
+  - type: preset
+    preset: paths
+output:
+  format: flat
+  top_n: 20
+  min_count: 1
+  human_bytes: true
+  max_lines: 60

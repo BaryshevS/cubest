@@ -1,0 +1,25 @@
+name: k8s_resources
+description: "Kubernetes manifests inventory: kind × namespace × name across a helm chart / kustomize / raw yaml tree."
+scan:
+  include: ["*.yaml", "*.yml"]
+  exclude: [".git/", "node_modules/"]
+  content_match: ['^apiVersion:\s']
+  stream: true
+dimensions: [kind, namespace, name]
+measures:
+  - name: docs
+    type: count
+extract:
+  - type: regex
+    multiline: false
+    pattern: '^kind:\s*(?P<kind>\S+)'
+  - type: regex
+    multiline: false
+    pattern: '^\s{2}namespace:\s*(?P<namespace>\S+)'
+  - type: regex
+    multiline: false
+    pattern: '^\s{2}name:\s*(?P<name>\S+)'
+output:
+  format: flat
+  top_n: 30
+  max_lines: 80
