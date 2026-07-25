@@ -1,0 +1,68 @@
+# .github/workflows/cubest-pr-impact.yml
+#
+# Posts an "MR impact + tech-debt delta" comment on every pull request.
+# Uses `cubest --diff` between the base branch and the PR head.
+
+name: cubest PR impact
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write        # for `gh pr comment`
+
+jobs:
+  impact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0     # need both branches for `git diff`
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install cubest
+        run: |
+          pip install pyyaml
+          curl -sSL -o cubest.py \
+            https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
+
+      # ------------------------------------------------------------------
+      # Snapshot tech-debt on base and head; diff the counts
+      # ------------------------------------------------------------------
+      - name: Snapshot base branch
+        run: |
+          git checkout origin/${{ github.base_ref }} -- .
+          python3 cubest.py -p '{"dimensions":["kind","file"],
+            "measures":[{"name":"count","type":"count"}],
+            "extract":[{"type":"regex","pattern":"(?P<kind>TODO|FIXME|HACK)"}],
+            "output":{"format":"json"}}' . > /tmp/base.json
+          git checkout ${{ github.head_ref }} -- .
+
+      - name: Snapshot head + build report
+        run: |
+          python3 cubest.py -p '{"dimensions":["kind","file"],
+            "measures":[{"name":"count","type":"count"}],
+            "extract":[{"type":"regex","pattern":"(?P<kind>TODO|FIXME|HACK)"}],
+            "output":{"format":"json"}}' . > /tmp/head.json
+
+          {
+            echo "## 🧭 cubest — PR impact"
+            echo
+            echo "### Tech-debt delta"
+            python3 cubest.py --diff /tmp/base.json /tmp/head.json
+            echo
+            echo "### Changed files map"
+            git diff --name-only origin/${{ github.base_ref }}...HEAD \
+              | python3 cubest.py -F - -p mr_impact . \
+                  -p '{"output":{"format":"md_table"}}'
+          } > /tmp/report.md
+
+      - name: Comment on PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr comment ${{ github.event.number }} --body-file /tmp/report.md

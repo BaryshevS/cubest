@@ -1,0 +1,24 @@
+# .gitlab-ci.yml (or a nightly-audit fragment)
+#
+# Nightly job: LOC + tech-debt + call-graph snapshot, posted as MR-artefact.
+
+cubest_audit:
+  stage: audit
+  image: python:3.11-slim
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - pip install pyyaml
+    - apt-get update && apt-get install -y --no-install-recommends graphviz
+    - curl -sSL -o cubest.py https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
+  script:
+    - mkdir -p artefacts
+    - python3 cubest.py --profile loc_counter    . > artefacts/loc.txt
+    - python3 cubest.py --profile tech_debt      . -p '{"output":{"format":"md_table"}}' > artefacts/tech_debt.md
+    - python3 cubest.py --profile file_tree      . > artefacts/tree.txt
+    - python3 cubest.py --profile call_graph src/ | dot -Tsvg > artefacts/callgraph.svg
+    - python3 cubest.py --profile file_tree      . -p '{"output":{"format":"echarts","chart_type":"treemap"}}' > artefacts/tree.html
+  artifacts:
+    paths:
+      - artefacts/
+    expire_in: 30 days
