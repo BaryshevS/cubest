@@ -18,7 +18,7 @@ measures:
     field: duration
 extract:
   # Combined log format + $request_time on tail; tolerates leading
-  # "[host date]" decorator (litres/some ELB variants).
+  # "[host date]" decorator (some ELB variants).
   - type: regex
     multiline: false
     pattern: >-
