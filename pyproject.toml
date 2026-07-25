@@ -39,10 +39,9 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Visualization",
   "Topic :: Utilities",
 ]
-dependencies = []
+dependencies = ["PyYAML>=6.0"]
 
 [project.optional-dependencies]
-yaml = ["PyYAML>=6.0"]
 test = ["PyYAML>=6.0"]
 
 [project.urls]
@@ -59,5 +58,8 @@ cubest = "cubest:main"
 py-modules = ["cubest"]
 include-package-data = true
 
+[tool.setuptools.packages.find]
+include = ["profiles"]
+
 [tool.setuptools.package-data]
-"*" = ["profiles/*.yaml", "profiles/*.yml"]
+profiles = ["*.yaml", "*.yml"]
