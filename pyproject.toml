@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cubest"
+version = "0.1.0"
+description = "Single-pass OLAP aggregator over any text stream (code, logs, CSV, JSONL, XML, SDD artefacts) → 12 output formats including ECharts HTML. Token-cheap alternative to grep+cat chains for LLM agents."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+authors = [{ name = "Sergey Baryshev" }]
+keywords = [
+  "olap", "aggregator", "cli", "log-analysis", "observability", "sre",
+  "devops", "echarts", "graphviz", "mermaid", "plantuml", "code-analysis",
+  "loc-counter", "seo-audit", "sitemap", "llm", "claude-code", "ai-agents",
+  "token-optimization", "regex", "yaml", "csv", "jsonl", "nginx",
+  "percentile", "reservoir-sampling"
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "Intended Audience :: Information Technology",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: System :: Logging",
+  "Topic :: System :: Monitoring",
+  "Topic :: Text Processing :: Indexing",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Topic :: Scientific/Engineering :: Visualization",
+  "Topic :: Utilities",
+]
+dependencies = []
+
+[project.optional-dependencies]
+yaml = ["PyYAML>=6.0"]
+test = ["PyYAML>=6.0"]
+
+[project.urls]
+Homepage      = "https://github.com/BaryshevS/cubest"
+Repository    = "https://github.com/BaryshevS/cubest"
+Documentation = "https://github.com/BaryshevS/cubest#readme"
+Issues        = "https://github.com/BaryshevS/cubest/issues"
+Changelog     = "https://github.com/BaryshevS/cubest/releases"
+
+[project.scripts]
+cubest = "cubest:main"
+
+[tool.setuptools]
+py-modules = ["cubest"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"*" = ["profiles/*.yaml", "profiles/*.yml"]

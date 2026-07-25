@@ -1,0 +1,28 @@
+{
+  "name": "cubest",
+  "version": "0.1.0",
+  "description": "Single-pass OLAP aggregator over any text stream (code, logs, CSV, JSONL, XML, SDD artefacts) → 12 output formats including ECharts HTML. Token-cheap alternative to grep+cat chains for LLM agents. npm wrapper — installs Python cubest via pipx or delegates to python3.",
+  "keywords": [
+    "olap", "aggregator", "cli", "log-analysis", "observability", "sre",
+    "devops", "echarts", "graphviz", "mermaid", "plantuml", "code-analysis",
+    "loc-counter", "seo-audit", "sitemap", "llm", "claude-code", "ai-agents",
+    "token-optimization", "regex", "nginx", "percentile"
+  ],
+  "author": "Sergey Baryshev",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/BaryshevS/cubest#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BaryshevS/cubest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BaryshevS/cubest/issues"
+  },
+  "bin": {
+    "cubest": "bin/cubest.js"
+  },
+  "files": ["bin/", "cubest.py", "profiles/", "README.md", "LICENSE", "NOTICE"],
+  "engines": {
+    "node": ">=14"
+  }
+}
