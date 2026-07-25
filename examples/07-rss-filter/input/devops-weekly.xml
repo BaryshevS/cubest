@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<rss version="2.0"><channel>
+<title>devops-weekly</title><link>https://example.com/devops-weekly</link>
+<item><title>Post 0 on rust, devops, sre</title>
+<link>https://example.com/devops-weekly/post-0</link>
+<category>rust</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 0 on rust, devops, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 1 on ml, go, javascript</title>
+<link>https://example.com/devops-weekly/post-1</link>
+<category>ml</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 1 on ml, go, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 2 on python, postgres, kubernetes</title>
+<link>https://example.com/devops-weekly/post-2</link>
+<category>python</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 2 on python, postgres, kubernetes — lots of content here about the subject.</description>
+</item>
+<item><title>Post 3 on go, python, llm</title>
+<link>https://example.com/devops-weekly/post-3</link>
+<category>go</category>
+<pubDate>Mon, 04 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 3 on go, python, llm — lots of content here about the subject.</description>
+</item>
+<item><title>Post 4 on ai, sre, postgres</title>
+<link>https://example.com/devops-weekly/post-4</link>
+<category>ai</category>
+<pubDate>Mon, 05 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 4 on ai, sre, postgres — lots of content here about the subject.</description>
+</item>
+<item><title>Post 5 on kubernetes, security, javascript</title>
+<link>https://example.com/devops-weekly/post-5</link>
+<category>kubernetes</category>
+<pubDate>Mon, 06 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 5 on kubernetes, security, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 6 on ai, rust, kubernetes</title>
+<link>https://example.com/devops-weekly/post-6</link>
+<category>ai</category>
+<pubDate>Mon, 07 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 6 on ai, rust, kubernetes — lots of content here about the subject.</description>
+</item>
+<item><title>Post 7 on python, kubernetes, security</title>
+<link>https://example.com/devops-weekly/post-7</link>
+<category>python</category>
+<pubDate>Mon, 08 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 7 on python, kubernetes, security — lots of content here about the subject.</description>
+</item>
+<item><title>Post 8 on devops, llm, security</title>
+<link>https://example.com/devops-weekly/post-8</link>
+<category>devops</category>
+<pubDate>Mon, 09 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 8 on devops, llm, security — lots of content here about the subject.</description>
+</item>
+<item><title>Post 9 on llm, ai, ml</title>
+<link>https://example.com/devops-weekly/post-9</link>
+<category>llm</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 9 on llm, ai, ml — lots of content here about the subject.</description>
+</item>
+<item><title>Post 10 on rust, ml, postgres</title>
+<link>https://example.com/devops-weekly/post-10</link>
+<category>rust</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 10 on rust, ml, postgres — lots of content here about the subject.</description>
+</item>
+<item><title>Post 11 on llm, ml, python</title>
+<link>https://example.com/devops-weekly/post-11</link>
+<category>llm</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 11 on llm, ml, python — lots of content here about the subject.</description>
+</item>
+<item><title>Post 12 on python, kubernetes, go</title>
+<link>https://example.com/devops-weekly/post-12</link>
+<category>python</category>
+<pubDate>Mon, 04 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 12 on python, kubernetes, go — lots of content here about the subject.</description>
+</item>
+<item><title>Post 13 on llm, ml, devops</title>
+<link>https://example.com/devops-weekly/post-13</link>
+<category>llm</category>
+<pubDate>Mon, 05 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 13 on llm, ml, devops — lots of content here about the subject.</description>
+</item>
+<item><title>Post 14 on sre, kubernetes, javascript</title>
+<link>https://example.com/devops-weekly/post-14</link>
+<category>sre</category>
+<pubDate>Mon, 06 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 14 on sre, kubernetes, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 15 on go, ml, kubernetes</title>
+<link>https://example.com/devops-weekly/post-15</link>
+<category>go</category>
+<pubDate>Mon, 07 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 15 on go, ml, kubernetes — lots of content here about the subject.</description>
+</item>
+<item><title>Post 16 on llm, kubernetes, security</title>
+<link>https://example.com/devops-weekly/post-16</link>
+<category>llm</category>
+<pubDate>Mon, 08 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 16 on llm, kubernetes, security — lots of content here about the subject.</description>
+</item>
+<item><title>Post 17 on devops, python, sre</title>
+<link>https://example.com/devops-weekly/post-17</link>
+<category>devops</category>
+<pubDate>Mon, 09 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 17 on devops, python, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 18 on security, llm, go</title>
+<link>https://example.com/devops-weekly/post-18</link>
+<category>security</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 18 on security, llm, go — lots of content here about the subject.</description>
+</item>
+<item><title>Post 19 on devops, ai, sre</title>
+<link>https://example.com/devops-weekly/post-19</link>
+<category>devops</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 19 on devops, ai, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 20 on devops, rust, go</title>
+<link>https://example.com/devops-weekly/post-20</link>
+<category>devops</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 20 on devops, rust, go — lots of content here about the subject.</description>
+</item>
+<item><title>Post 21 on python, rust, sre</title>
+<link>https://example.com/devops-weekly/post-21</link>
+<category>python</category>
+<pubDate>Mon, 04 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 21 on python, rust, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 22 on ai, devops, sre</title>
+<link>https://example.com/devops-weekly/post-22</link>
+<category>ai</category>
+<pubDate>Mon, 05 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 22 on ai, devops, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 23 on devops, postgres, sre</title>
+<link>https://example.com/devops-weekly/post-23</link>
+<category>devops</category>
+<pubDate>Mon, 06 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 23 on devops, postgres, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 24 on llm, postgres, go</title>
+<link>https://example.com/devops-weekly/post-24</link>
+<category>llm</category>
+<pubDate>Mon, 07 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 24 on llm, postgres, go — lots of content here about the subject.</description>
+</item>
+<item><title>Post 25 on ml, llm, python</title>
+<link>https://example.com/devops-weekly/post-25</link>
+<category>ml</category>
+<pubDate>Mon, 08 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 25 on ml, llm, python — lots of content here about the subject.</description>
+</item>
+<item><title>Post 26 on devops, python, sre</title>
+<link>https://example.com/devops-weekly/post-26</link>
+<category>devops</category>
+<pubDate>Mon, 09 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 26 on devops, python, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 27 on security, python, javascript</title>
+<link>https://example.com/devops-weekly/post-27</link>
+<category>security</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 27 on security, python, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 28 on security, sre, ml</title>
+<link>https://example.com/devops-weekly/post-28</link>
+<category>security</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 28 on security, sre, ml — lots of content here about the subject.</description>
+</item>
+<item><title>Post 29 on rust, python, postgres</title>
+<link>https://example.com/devops-weekly/post-29</link>
+<category>rust</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 29 on rust, python, postgres — lots of content here about the subject.</description>
+</item>
+</channel></rss>

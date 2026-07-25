@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<rss version="2.0"><channel>
+<title>ai-research</title><link>https://example.com/ai-research</link>
+<item><title>Post 0 on kubernetes, security, postgres</title>
+<link>https://example.com/ai-research/post-0</link>
+<category>kubernetes</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 0 on kubernetes, security, postgres — lots of content here about the subject.</description>
+</item>
+<item><title>Post 1 on ml, devops, kubernetes</title>
+<link>https://example.com/ai-research/post-1</link>
+<category>ml</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 1 on ml, devops, kubernetes — lots of content here about the subject.</description>
+</item>
+<item><title>Post 2 on javascript, devops, kubernetes</title>
+<link>https://example.com/ai-research/post-2</link>
+<category>javascript</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 2 on javascript, devops, kubernetes — lots of content here about the subject.</description>
+</item>
+<item><title>Post 3 on llm, ml, postgres</title>
+<link>https://example.com/ai-research/post-3</link>
+<category>llm</category>
+<pubDate>Mon, 04 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 3 on llm, ml, postgres — lots of content here about the subject.</description>
+</item>
+<item><title>Post 4 on llm, sre, kubernetes</title>
+<link>https://example.com/ai-research/post-4</link>
+<category>llm</category>
+<pubDate>Mon, 05 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 4 on llm, sre, kubernetes — lots of content here about the subject.</description>
+</item>
+<item><title>Post 5 on ai, postgres, javascript</title>
+<link>https://example.com/ai-research/post-5</link>
+<category>ai</category>
+<pubDate>Mon, 06 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 5 on ai, postgres, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 6 on ai, llm, kubernetes</title>
+<link>https://example.com/ai-research/post-6</link>
+<category>ai</category>
+<pubDate>Mon, 07 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 6 on ai, llm, kubernetes — lots of content here about the subject.</description>
+</item>
+<item><title>Post 7 on llm, sre, python</title>
+<link>https://example.com/ai-research/post-7</link>
+<category>llm</category>
+<pubDate>Mon, 08 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 7 on llm, sre, python — lots of content here about the subject.</description>
+</item>
+<item><title>Post 8 on ml, go, sre</title>
+<link>https://example.com/ai-research/post-8</link>
+<category>ml</category>
+<pubDate>Mon, 09 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 8 on ml, go, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 9 on kubernetes, python, llm</title>
+<link>https://example.com/ai-research/post-9</link>
+<category>kubernetes</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 9 on kubernetes, python, llm — lots of content here about the subject.</description>
+</item>
+<item><title>Post 10 on devops, rust, security</title>
+<link>https://example.com/ai-research/post-10</link>
+<category>devops</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 10 on devops, rust, security — lots of content here about the subject.</description>
+</item>
+<item><title>Post 11 on go, llm, devops</title>
+<link>https://example.com/ai-research/post-11</link>
+<category>go</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 11 on go, llm, devops — lots of content here about the subject.</description>
+</item>
+<item><title>Post 12 on security, go, javascript</title>
+<link>https://example.com/ai-research/post-12</link>
+<category>security</category>
+<pubDate>Mon, 04 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 12 on security, go, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 13 on ai, security, javascript</title>
+<link>https://example.com/ai-research/post-13</link>
+<category>ai</category>
+<pubDate>Mon, 05 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 13 on ai, security, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 14 on python, rust, security</title>
+<link>https://example.com/ai-research/post-14</link>
+<category>python</category>
+<pubDate>Mon, 06 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 14 on python, rust, security — lots of content here about the subject.</description>
+</item>
+<item><title>Post 15 on python, go, javascript</title>
+<link>https://example.com/ai-research/post-15</link>
+<category>python</category>
+<pubDate>Mon, 07 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 15 on python, go, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 16 on python, ml, javascript</title>
+<link>https://example.com/ai-research/post-16</link>
+<category>python</category>
+<pubDate>Mon, 08 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 16 on python, ml, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 17 on postgres, kubernetes, python</title>
+<link>https://example.com/ai-research/post-17</link>
+<category>postgres</category>
+<pubDate>Mon, 09 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 17 on postgres, kubernetes, python — lots of content here about the subject.</description>
+</item>
+<item><title>Post 18 on ai, go, rust</title>
+<link>https://example.com/ai-research/post-18</link>
+<category>ai</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 18 on ai, go, rust — lots of content here about the subject.</description>
+</item>
+<item><title>Post 19 on security, python, sre</title>
+<link>https://example.com/ai-research/post-19</link>
+<category>security</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 19 on security, python, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 20 on javascript, kubernetes, go</title>
+<link>https://example.com/ai-research/post-20</link>
+<category>javascript</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 20 on javascript, kubernetes, go — lots of content here about the subject.</description>
+</item>
+<item><title>Post 21 on devops, python, ai</title>
+<link>https://example.com/ai-research/post-21</link>
+<category>devops</category>
+<pubDate>Mon, 04 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 21 on devops, python, ai — lots of content here about the subject.</description>
+</item>
+<item><title>Post 22 on sre, llm, go</title>
+<link>https://example.com/ai-research/post-22</link>
+<category>sre</category>
+<pubDate>Mon, 05 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 22 on sre, llm, go — lots of content here about the subject.</description>
+</item>
+<item><title>Post 23 on kubernetes, ai, go</title>
+<link>https://example.com/ai-research/post-23</link>
+<category>kubernetes</category>
+<pubDate>Mon, 06 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 23 on kubernetes, ai, go — lots of content here about the subject.</description>
+</item>
+<item><title>Post 24 on sre, ml, devops</title>
+<link>https://example.com/ai-research/post-24</link>
+<category>sre</category>
+<pubDate>Mon, 07 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 24 on sre, ml, devops — lots of content here about the subject.</description>
+</item>
+<item><title>Post 25 on go, sre, ai</title>
+<link>https://example.com/ai-research/post-25</link>
+<category>go</category>
+<pubDate>Mon, 08 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 25 on go, sre, ai — lots of content here about the subject.</description>
+</item>
+<item><title>Post 26 on rust, devops, security</title>
+<link>https://example.com/ai-research/post-26</link>
+<category>rust</category>
+<pubDate>Mon, 09 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 26 on rust, devops, security — lots of content here about the subject.</description>
+</item>
+<item><title>Post 27 on rust, security, devops</title>
+<link>https://example.com/ai-research/post-27</link>
+<category>rust</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 27 on rust, security, devops — lots of content here about the subject.</description>
+</item>
+<item><title>Post 28 on kubernetes, sre, javascript</title>
+<link>https://example.com/ai-research/post-28</link>
+<category>kubernetes</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 28 on kubernetes, sre, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 29 on javascript, go, postgres</title>
+<link>https://example.com/ai-research/post-29</link>
+<category>javascript</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 29 on javascript, go, postgres — lots of content here about the subject.</description>
+</item>
+</channel></rss>

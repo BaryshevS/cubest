@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<rss version="2.0"><channel>
+<title>tech-news</title><link>https://example.com/tech-news</link>
+<item><title>Post 0 on security, sre, ai</title>
+<link>https://example.com/tech-news/post-0</link>
+<category>security</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 0 on security, sre, ai — lots of content here about the subject.</description>
+</item>
+<item><title>Post 1 on postgres, security, python</title>
+<link>https://example.com/tech-news/post-1</link>
+<category>postgres</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 1 on postgres, security, python — lots of content here about the subject.</description>
+</item>
+<item><title>Post 2 on postgres, sre, python</title>
+<link>https://example.com/tech-news/post-2</link>
+<category>postgres</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 2 on postgres, sre, python — lots of content here about the subject.</description>
+</item>
+<item><title>Post 3 on ai, javascript, llm</title>
+<link>https://example.com/tech-news/post-3</link>
+<category>ai</category>
+<pubDate>Mon, 04 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 3 on ai, javascript, llm — lots of content here about the subject.</description>
+</item>
+<item><title>Post 4 on ml, go, rust</title>
+<link>https://example.com/tech-news/post-4</link>
+<category>ml</category>
+<pubDate>Mon, 05 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 4 on ml, go, rust — lots of content here about the subject.</description>
+</item>
+<item><title>Post 5 on ml, llm, rust</title>
+<link>https://example.com/tech-news/post-5</link>
+<category>ml</category>
+<pubDate>Mon, 06 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 5 on ml, llm, rust — lots of content here about the subject.</description>
+</item>
+<item><title>Post 6 on llm, devops, rust</title>
+<link>https://example.com/tech-news/post-6</link>
+<category>llm</category>
+<pubDate>Mon, 07 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 6 on llm, devops, rust — lots of content here about the subject.</description>
+</item>
+<item><title>Post 7 on go, kubernetes, devops</title>
+<link>https://example.com/tech-news/post-7</link>
+<category>go</category>
+<pubDate>Mon, 08 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 7 on go, kubernetes, devops — lots of content here about the subject.</description>
+</item>
+<item><title>Post 8 on python, postgres, go</title>
+<link>https://example.com/tech-news/post-8</link>
+<category>python</category>
+<pubDate>Mon, 09 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 8 on python, postgres, go — lots of content here about the subject.</description>
+</item>
+<item><title>Post 9 on ml, security, llm</title>
+<link>https://example.com/tech-news/post-9</link>
+<category>ml</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 9 on ml, security, llm — lots of content here about the subject.</description>
+</item>
+<item><title>Post 10 on ai, python, ml</title>
+<link>https://example.com/tech-news/post-10</link>
+<category>ai</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 10 on ai, python, ml — lots of content here about the subject.</description>
+</item>
+<item><title>Post 11 on rust, ml, python</title>
+<link>https://example.com/tech-news/post-11</link>
+<category>rust</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 11 on rust, ml, python — lots of content here about the subject.</description>
+</item>
+<item><title>Post 12 on devops, javascript, ml</title>
+<link>https://example.com/tech-news/post-12</link>
+<category>devops</category>
+<pubDate>Mon, 04 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 12 on devops, javascript, ml — lots of content here about the subject.</description>
+</item>
+<item><title>Post 13 on go, kubernetes, llm</title>
+<link>https://example.com/tech-news/post-13</link>
+<category>go</category>
+<pubDate>Mon, 05 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 13 on go, kubernetes, llm — lots of content here about the subject.</description>
+</item>
+<item><title>Post 14 on rust, python, ml</title>
+<link>https://example.com/tech-news/post-14</link>
+<category>rust</category>
+<pubDate>Mon, 06 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 14 on rust, python, ml — lots of content here about the subject.</description>
+</item>
+<item><title>Post 15 on ai, go, ml</title>
+<link>https://example.com/tech-news/post-15</link>
+<category>ai</category>
+<pubDate>Mon, 07 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 15 on ai, go, ml — lots of content here about the subject.</description>
+</item>
+<item><title>Post 16 on python, ml, sre</title>
+<link>https://example.com/tech-news/post-16</link>
+<category>python</category>
+<pubDate>Mon, 08 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 16 on python, ml, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 17 on devops, rust, security</title>
+<link>https://example.com/tech-news/post-17</link>
+<category>devops</category>
+<pubDate>Mon, 09 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 17 on devops, rust, security — lots of content here about the subject.</description>
+</item>
+<item><title>Post 18 on rust, ml, kubernetes</title>
+<link>https://example.com/tech-news/post-18</link>
+<category>rust</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 18 on rust, ml, kubernetes — lots of content here about the subject.</description>
+</item>
+<item><title>Post 19 on ml, llm, postgres</title>
+<link>https://example.com/tech-news/post-19</link>
+<category>ml</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 19 on ml, llm, postgres — lots of content here about the subject.</description>
+</item>
+<item><title>Post 20 on ml, devops, sre</title>
+<link>https://example.com/tech-news/post-20</link>
+<category>ml</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 20 on ml, devops, sre — lots of content here about the subject.</description>
+</item>
+<item><title>Post 21 on kubernetes, go, python</title>
+<link>https://example.com/tech-news/post-21</link>
+<category>kubernetes</category>
+<pubDate>Mon, 04 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 21 on kubernetes, go, python — lots of content here about the subject.</description>
+</item>
+<item><title>Post 22 on kubernetes, ai, llm</title>
+<link>https://example.com/tech-news/post-22</link>
+<category>kubernetes</category>
+<pubDate>Mon, 05 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 22 on kubernetes, ai, llm — lots of content here about the subject.</description>
+</item>
+<item><title>Post 23 on javascript, security, devops</title>
+<link>https://example.com/tech-news/post-23</link>
+<category>javascript</category>
+<pubDate>Mon, 06 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 23 on javascript, security, devops — lots of content here about the subject.</description>
+</item>
+<item><title>Post 24 on javascript, postgres, devops</title>
+<link>https://example.com/tech-news/post-24</link>
+<category>javascript</category>
+<pubDate>Mon, 07 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 24 on javascript, postgres, devops — lots of content here about the subject.</description>
+</item>
+<item><title>Post 25 on javascript, rust, python</title>
+<link>https://example.com/tech-news/post-25</link>
+<category>javascript</category>
+<pubDate>Mon, 08 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 25 on javascript, rust, python — lots of content here about the subject.</description>
+</item>
+<item><title>Post 26 on javascript, security, go</title>
+<link>https://example.com/tech-news/post-26</link>
+<category>javascript</category>
+<pubDate>Mon, 09 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 26 on javascript, security, go — lots of content here about the subject.</description>
+</item>
+<item><title>Post 27 on rust, go, ai</title>
+<link>https://example.com/tech-news/post-27</link>
+<category>rust</category>
+<pubDate>Mon, 01 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 27 on rust, go, ai — lots of content here about the subject.</description>
+</item>
+<item><title>Post 28 on go, kubernetes, javascript</title>
+<link>https://example.com/tech-news/post-28</link>
+<category>go</category>
+<pubDate>Mon, 02 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 28 on go, kubernetes, javascript — lots of content here about the subject.</description>
+</item>
+<item><title>Post 29 on ml, postgres, python</title>
+<link>https://example.com/tech-news/post-29</link>
+<category>ml</category>
+<pubDate>Mon, 03 Jul 2026 10:00:00 GMT</pubDate>
+<description>Detailed post number 29 on ml, postgres, python — lots of content here about the subject.</description>
+</item>
+</channel></rss>
