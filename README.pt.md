@@ -44,7 +44,7 @@ do agente diminuem entre 5–25×.
 curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
 python3 cubest.py --profile file_tree .
 
-# Via pip (em breve no PyPI)
+# Via pip do PyPI (PyYAML incluído)
 pip install cubest
 cubest --profile file_tree .
 

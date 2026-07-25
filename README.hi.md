@@ -42,7 +42,7 @@ Cubest **बड़े प्रवाह और श्रेणीबद्ध �
 curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
 python3 cubest.py --profile file_tree .
 
-# pip के ज़रिये (PyPI पर जल्द उपलब्ध)
+# PyPI से pip के ज़रिये (PyYAML शामिल)
 pip install cubest
 cubest --profile file_tree .
 

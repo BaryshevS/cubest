@@ -42,7 +42,7 @@ Cubest は**大きなストリームと階層データ**で勝ちます。非常
 curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
 python3 cubest.py --profile file_tree .
 
-# pip 経由(PyPI 公開予定)
+# PyPI から pip 経由(PyYAML 同梱)
 pip install cubest
 cubest --profile file_tree .
 

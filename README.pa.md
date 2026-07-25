@@ -44,7 +44,7 @@ sitemap ਕ੍ਰੌਲ — ਵਿੱਚ ਏਜੰਟ ਦੇ ਸੰਦਰਭ ਵ
 curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
 python3 cubest.py --profile file_tree .
 
-# pip ਰਾਹੀਂ (PyPI ਉੱਤੇ ਜਲਦੀ ਹੀ)
+# PyPI ਤੋਂ pip ਰਾਹੀਂ (PyYAML ਸ਼ਾਮਲ)
 pip install cubest
 cubest --profile file_tree .
 

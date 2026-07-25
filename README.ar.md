@@ -42,7 +42,7 @@
 curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
 python3 cubest.py --profile file_tree .
 
-# عبر pip (سيُنشر على PyPI قريبًا)
+# عبر pip من PyPI (يتضمّن PyYAML)
 pip install cubest
 cubest --profile file_tree .
 

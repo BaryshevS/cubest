@@ -40,7 +40,7 @@ Cubest gana en **flujos grandes y datos jerárquicos**. Para tablas muy pequeña
 curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
 python3 cubest.py --profile file_tree .
 
-# Vía pip (publicación en PyPI próximamente)
+# Vía pip desde PyPI (PyYAML incluido)
 pip install cubest
 cubest --profile file_tree .
 

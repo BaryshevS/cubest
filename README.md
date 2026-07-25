@@ -10,9 +10,11 @@
 > pays per input token.
 
 <p align="left">
+  <a href="https://pypi.org/project/cubest/"><img src="https://img.shields.io/pypi/v/cubest.svg?logo=pypi&logoColor=white&label=PyPI" alt="PyPI version"></a>
+  <a href="https://www.npmjs.com/package/cubest"><img src="https://img.shields.io/npm/v/cubest.svg?logo=npm&logoColor=white&label=npm" alt="npm version"></a>
+  <a href="https://pypi.org/project/cubest/"><img src="https://img.shields.io/pypi/dm/cubest.svg?logo=pypi&logoColor=white&label=PyPI%20downloads" alt="PyPI downloads/month"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License Apache 2.0"></a>
   <img src="https://img.shields.io/badge/python-3.8%2B-blue.svg" alt="Python 3.8+">
-  <img src="https://img.shields.io/badge/deps-stdlib%20only-green.svg" alt="stdlib only">
   <img src="https://img.shields.io/badge/tests-57%20passing-brightgreen.svg" alt="57 tests passing">
   <img src="https://img.shields.io/badge/profiles-31%20built--in-purple.svg" alt="31 profiles">
   <img src="https://img.shields.io/badge/formats-13-orange.svg" alt="13 output formats">
@@ -79,24 +81,26 @@ Just `python3 cubest.py --profile ... <path>`.
 ## 🚀 Install
 
 ```bash
-# Option A — plain download (no deps, JSON profiles work as-is)
-curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
-python3 cubest.py --profile file_tree .
-
-# Option B — pip (PyPI publish coming)
+# Option A — pip from PyPI (PyYAML bundled)
 pip install cubest
 cubest --profile file_tree .
 
-# Option C — ephemeral via uv, no venv needed
+# Option B — npx from npm (thin wrapper, delegates to python3)
+npx cubest --profile file_tree .
+
+# Option C — plain download, single file, no venv
+curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
+pip install PyYAML          # only needed for YAML profiles / output
+python3 cubest.py --profile file_tree .
+
+# Option D — ephemeral via uv, no venv, no install
 uv run --with pyyaml \
   https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py \
   --profile file_tree .
-
-# Option D — npm wrapper (delegates to python3)
-npx cubest --profile file_tree .
 ```
 
-Only optional dependency is `PyYAML` (for YAML profiles / YAML output).
+`pip install cubest` and `npx cubest` pull `PyYAML` automatically.
+The `curl` variant runs standalone but needs `PyYAML` for YAML profiles.
 
 ## 🔌 AI agent integration
 

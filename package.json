@@ -1,6 +1,6 @@
 {
   "name": "cubest",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Single-pass OLAP aggregator over any text stream (code, logs, CSV, JSONL, XML, SDD artefacts) → 12 output formats including ECharts HTML. Token-cheap alternative to grep+cat chains for LLM agents. npm wrapper — installs Python cubest via pipx or delegates to python3.",
   "keywords": [
     "olap", "aggregator", "cli", "log-analysis", "observability", "sre",

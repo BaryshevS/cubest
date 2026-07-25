@@ -47,7 +47,7 @@ sitemap 爬虫 —— 落入代理上下文的 token 减少 5–25 倍。
 curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
 python3 cubest.py --profile file_tree .
 
-# 选项 B —— 通过 pip 安装(PyPI 即将发布)
+# 选项 B —— 通过 pip 从 PyPI 安装(自带 PyYAML)
 pip install cubest
 cubest --profile file_tree .
 

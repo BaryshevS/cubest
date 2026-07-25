@@ -43,7 +43,7 @@ cubest হারতেও পারে। মূল পরিস্থিতি�
 curl -O https://raw.githubusercontent.com/BaryshevS/cubest/main/cubest.py
 python3 cubest.py --profile file_tree .
 
-# pip-এর মাধ্যমে (PyPI-তে শীঘ্রই)
+# PyPI থেকে pip-এর মাধ্যমে (PyYAML অন্তর্ভুক্ত)
 pip install cubest
 cubest --profile file_tree .
 

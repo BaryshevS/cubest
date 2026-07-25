@@ -1,0 +1,38 @@
+name: 📊 Profile request
+description: Suggest a new built-in profile (nginx variant, cloud log format, framework, etc.).
+labels: ["profile-request"]
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: What kind of file / stream does this profile aggregate, and what question does it answer?
+      placeholder: |
+        Input: <format> (e.g. AWS ALB access log / Kubernetes audit log).
+        Question: "top 20 source IPs by 5xx count, p95 latency per path".
+    validations:
+      required: true
+  - type: textarea
+    id: sample-input
+    attributes:
+      label: Sample input (10-30 lines)
+      description: Paste a few representative rows so we can build a real regex/extractor.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected-output
+    attributes:
+      label: Expected output shape
+      description: |
+        What should the OLAP tree look like? Dimensions × measures?
+      placeholder: |
+        dimensions: [status, path]
+        measures: [count, p95(duration)]
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Reference / spec
+      description: Link to the format spec (e.g. nginx docs, ELB docs) if any.

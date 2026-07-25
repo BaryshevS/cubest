@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cubest"
-version = "0.1.0"
+version = "1.0.0"
 description = "Single-pass OLAP aggregator over any text stream (code, logs, CSV, JSONL, XML, SDD artefacts) → 12 output formats including ECharts HTML. Token-cheap alternative to grep+cat chains for LLM agents."
 readme = "README.md"
 requires-python = ">=3.8"

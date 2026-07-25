@@ -1,0 +1,43 @@
+name: 💡 Feature request
+description: Propose a new capability — CLI flag, output format, measure, etc.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Start with the concrete task/workflow, not the mechanism.
+      placeholder: |
+        When I try to <task>, cubest currently forces me to <workaround>
+        because <limitation>. This costs me <cost> per run.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: |
+        What should cubest do? Include the CLI syntax you'd like to write
+        and the output you'd expect.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Existing profiles, tools (awk / GoAccess / cloc / …), or workarounds and why they fall short.
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - New built-in profile
+        - New output format
+        - New measure / aggregate
+        - CLI flag
+        - Performance / streaming
+        - Documentation
+        - Other
+    validations:
+      required: true

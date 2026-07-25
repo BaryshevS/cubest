@@ -1,0 +1,61 @@
+name: 🐞 Bug report
+description: Something behaves unexpectedly.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A concise description of the bug and what you expected instead.
+      placeholder: |
+        Running `cubest --profile ... .` on <input> produced <output>,
+        but I expected <expected>.
+    validations:
+      required: true
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Minimal reproducer
+      description: |
+        The smallest command + input that reproduces the issue. Ideally
+        a one-liner + a paste of ≤ 20 lines of input.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: cubest version
+      description: Output of `cubest --version` (or the commit SHA if running from source).
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: install-method
+    attributes:
+      label: Installed via
+      options:
+        - pip / PyPI
+        - npx / npm
+        - curl (single-file)
+        - uv run
+        - git clone
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      description: Output of `python3 --version`.
+      placeholder: "3.11.5"
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: "Ubuntu 22.04 / macOS 14 / Windows 11"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / traceback
+      description: Paste the full stderr / traceback if any.
+      render: shell

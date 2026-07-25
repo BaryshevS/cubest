@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Ask a question / discuss
+    url: https://github.com/BaryshevS/cubest/discussions
+    about: For usage questions, ideas, or general chat — use Discussions.
+  - name: 🔐 Report a security vulnerability
+    url: https://github.com/BaryshevS/cubest/security/policy
+    about: Do NOT open a public issue for security bugs — see SECURITY.md.
