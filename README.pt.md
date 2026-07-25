@@ -52,6 +52,36 @@ cubest --profile file_tree .
 npx cubest --profile file_tree .
 ```
 
+## 🔌 Instalar em agentes de IA
+
+**Duas variantes** para cada harness:
+
+- **Variante A — apenas CLI:** instale o binário (`pip install cubest`)
+  e nomeie cubest no seu prompt. Simples, funciona em qualquer lugar.
+- **Variante B — como skill / regra (recomendado):** também deixe uma
+  regra na config **global-de-usuário** do harness — o agente escolhe
+  cubest sozinho quando o prompt corresponde.
+
+| Harness | Comando de instalação (Variante B) |
+|---|---|
+| **Claude Code** | `git clone --depth 1 https://github.com/BaryshevS/cubest ~/.claude/skills/cubest` |
+| **Cursor** | Criar `~/.cursor/rules/cubest.mdc` (regra MDC) |
+| **OpenAI Codex CLI** | Adicionar hint a `~/.codex/AGENTS.md` |
+| **Aider** | `~/.aider/cubest-hint.md` + registrar em `~/.aider.conf.yml` |
+| **Windsurf (Codeium)** | Adicionar a `~/.codeium/windsurf/memories/global_rules.md` |
+| **Cline (VS Code)** | Settings → Cline → Custom Instructions |
+| **Continue.dev** | Adicionar customCommand a `~/.continue/config.json` |
+| **OpenCode** | Adicionar a `~/.config/opencode/opencode.json` `instructions` ou `~/AGENTS.md` |
+
+Snippets copy-paste completos + prompts de verificação por harness:
+👉 [README em inglês — Install once, use in every AI agent](README.md#-install-once--use-in-every-ai-agent)
+
+**Smoke-test universal** — cole no chat de qualquer agente:
+
+> Use cubest para mostrar a árvore de arquivos — top dirs × ext × tamanho.
+
+Se o agente retorna árvore ASCII com `count=…, bytes=…` — cubest conectado.
+
 ## ⚡ Início rápido
 
 ```bash

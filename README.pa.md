@@ -52,6 +52,36 @@ cubest --profile file_tree .
 npx cubest --profile file_tree .
 ```
 
+## 🔌 AI ਏਜੰਟ ਵਿੱਚ ਇੰਸਟਾਲੇਸ਼ਨ
+
+ਹਰ harness ਲਈ **ਦੋ ਤਰੀਕੇ**:
+
+- **ਤਰੀਕਾ A — ਸਿਰਫ਼ CLI:** binary ਇੰਸਟਾਲ ਕਰੋ (`pip install cubest`),
+  ਪ੍ਰੌਂਪਟ ਵਿੱਚ cubest ਦਾ ਨਾਮ ਲਓ। ਸਭ ਤੋਂ ਸੌਖਾ, ਹਰ ਥਾਂ ਕੰਮ ਕਰਦਾ ਹੈ।
+- **ਤਰੀਕਾ B — skill / rule ਵਜੋਂ (ਸਿਫ਼ਾਰਸ਼):** ਨਾਲੇ harness ਦੇ
+  **ਯੂਜ਼ਰ-ਗਲੋਬਲ** config ਵਿੱਚ rule ਫ਼ਾਈਲ ਪਾਓ — ਏਜੰਟ ਖੁਦ cubest
+  ਚੁਣੇਗਾ ਜਦ ਪ੍ਰੌਂਪਟ ਮੇਲ ਖਾਵੇ।
+
+| Harness | ਇੰਸਟਾਲ ਕਮਾਂਡ (ਤਰੀਕਾ B) |
+|---|---|
+| **Claude Code** | `git clone --depth 1 https://github.com/BaryshevS/cubest ~/.claude/skills/cubest` |
+| **Cursor** | `~/.cursor/rules/cubest.mdc` ਬਣਾਓ (MDC rule) |
+| **OpenAI Codex CLI** | `~/.codex/AGENTS.md` ਵਿੱਚ hint ਜੋੜੋ |
+| **Aider** | `~/.aider/cubest-hint.md` + `~/.aider.conf.yml` ਵਿੱਚ ਰਜਿਸਟਰ ਕਰੋ |
+| **Windsurf (Codeium)** | `~/.codeium/windsurf/memories/global_rules.md` ਵਿੱਚ ਜੋੜੋ |
+| **Cline (VS Code)** | Settings → Cline → Custom Instructions |
+| **Continue.dev** | `~/.continue/config.json` ਵਿੱਚ customCommand ਜੋੜੋ |
+| **OpenCode** | `~/.config/opencode/opencode.json` `instructions` ਜਾਂ `~/AGENTS.md` ਵਿੱਚ ਜੋੜੋ |
+
+ਪੂਰੇ copy-paste snippets + ਹਰ harness ਲਈ verify prompts:
+👉 [ਅੰਗਰੇਜ਼ੀ README — Install once, use in every AI agent](README.md#-install-once--use-in-every-ai-agent)
+
+**ਯੂਨੀਵਰਸਲ ਸਮੋਕ-ਟੈਸਟ** — ਕਿਸੇ ਵੀ ਏਜੰਟ ਦੀ ਚੈਟ ਵਿੱਚ paste ਕਰੋ:
+
+> cubest ਨਾਲ ਇਸ directory ਦਾ file tree ਦਿਖਾਓ — top dirs × ext × size।
+
+ਜੇ ਏਜੰਟ `count=…, bytes=…` ਵਾਲਾ ASCII tree ਵਾਪਸ ਕਰੇ — cubest connected।
+
 ## ⚡ ਤੇਜ਼ ਸ਼ੁਰੂਆਤ
 
 ```bash

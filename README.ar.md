@@ -50,6 +50,36 @@ cubest --profile file_tree .
 npx cubest --profile file_tree .
 ```
 
+## 🔌 التثبيت في وكلاء الذكاء الاصطناعي
+
+**طريقتان** لكل وكيل:
+
+- **الطريقة A — CLI فقط:** ثبّت الملف التنفيذي (`pip install cubest`)
+  واذكر cubest في مطالبتك. الأبسط، ويعمل في كل مكان.
+- **الطريقة B — كمهارة / قاعدة (موصى بها):** أضف ملف قاعدة إلى الإعدادات
+  **الشاملة للمستخدم** للوكيل — سيختار الوكيل cubest تلقائيًا عند تطابق
+  المطالبة.
+
+| الوكيل | أمر التثبيت (الطريقة B) |
+|---|---|
+| **Claude Code** | `git clone --depth 1 https://github.com/BaryshevS/cubest ~/.claude/skills/cubest` |
+| **Cursor** | إنشاء `~/.cursor/rules/cubest.mdc` (قاعدة MDC) |
+| **OpenAI Codex CLI** | إلحاق تلميح بـ `~/.codex/AGENTS.md` |
+| **Aider** | `~/.aider/cubest-hint.md` + تسجيل في `~/.aider.conf.yml` |
+| **Windsurf (Codeium)** | إلحاق بـ `~/.codeium/windsurf/memories/global_rules.md` |
+| **Cline (VS Code)** | Settings → Cline → Custom Instructions |
+| **Continue.dev** | إضافة customCommand إلى `~/.continue/config.json` |
+| **OpenCode** | إضافة إلى `~/.config/opencode/opencode.json` `instructions` أو `~/AGENTS.md` |
+
+مقاطع copy-paste كاملة + مطالبات التحقق لكل وكيل:
+👉 [README الإنجليزي — Install once, use in every AI agent](README.md#-install-once--use-in-every-ai-agent)
+
+**اختبار عالمي** — الصق في دردشة أي وكيل:
+
+> استخدم cubest لإظهار شجرة ملفات هذا الدليل — أعلى مجلدات × الامتداد × الحجم.
+
+إذا أرجع الوكيل شجرة ASCII بـ `count=…, bytes=…` — cubest متصل.
+
 ## ⚡ بداية سريعة
 
 ```bash

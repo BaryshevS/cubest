@@ -73,23 +73,49 @@ npx cubest --profile file_tree .
 
 零数据库、零 LLM、零 tree-sitter、零外部服务。
 
-## 🔌 AI 代理集成
+## 🔌 在 AI 代理中安装和验证
 
-Cubest 与代理无关。已测试并支持:
+cubest 可以通过**两种方式**接入任何 AI 编码代理:
 
-| 代理                        | 接入方法                                                    |
-|-----------------------------|-------------------------------------------------------------|
-| **Claude Code**             | 作为 `.claude/skills/cubest/` 技能发布;见 [SKILL.md](SKILL.md) |
-| **Cursor**                  | 在 Cursor 规则中将 `cubest` 添加为允许的 shell 工具         |
-| **OpenAI Codex CLI**        | 直接在 shell 中使用 —— Codex 会通过 `--help` 发现它          |
-| **Aider**                   | `/run cubest ...` 或添加到 `--command` 别名                 |
-| **Windsurf (Codeium)**      | 在 `windsurf.rules` 中允许 `cubest`                         |
-| **Cline (VS Code)**         | 启用命令执行;代理按需调用                                  |
-| **Continue.dev**            | 在 `~/.continue/config.json` 中添加为自定义斜杠命令         |
-| **任何支持工具调用的代理**   | 将 `cubest -p '<inline JSON>' <path>` 包装成一个工具        |
+- **方式 A — 仅 CLI:** 安装二进制,你在提示中显式提到 cubest。最简单,处处可用。
+- **方式 B — 作为技能 / 规则(推荐):** 再把规则文件放入代理的**用户全局**配置,
+  代理会主动为匹配的提示选择 cubest,无需你每次点名。
 
-魔法所在:代理**自己生成** `<inline JSON>` 配置文件,针对用户提问动态定制。
-无预设提示,无固定 API —— 一个工具就能适应任何查询。
+两种方式都需要先执行**步骤 0**(安装二进制)。方式 B 每个代理加一次配置。
+
+### 步骤 0 — 安装 cubest 二进制
+
+```bash
+pip install cubest        # PyPI(自带 PyYAML)
+# 或
+npm install -g cubest     # npm(薄包装器,委托 python3)
+```
+
+验证:`cubest --profile file_tree .` 应打印 ASCII 树。
+
+### 每个代理的方式 B(用户全局)
+
+| 代理 | 一次性安装命令(方式 B) |
+|---|---|
+| **Claude Code** | `git clone --depth 1 https://github.com/BaryshevS/cubest ~/.claude/skills/cubest` |
+| **Cursor** | 创建 `~/.cursor/rules/cubest.mdc` MDC 规则 |
+| **OpenAI Codex CLI** | 追加提示到 `~/.codex/AGENTS.md` |
+| **Aider** | `~/.aider/cubest-hint.md` + 在 `~/.aider.conf.yml` 注册 |
+| **Windsurf (Codeium)** | 追加到 `~/.codeium/windsurf/memories/global_rules.md` |
+| **Cline (VS Code)** | Settings → Cline → Custom Instructions |
+| **Continue.dev** | 在 `~/.continue/config.json` 添加 customCommand |
+| **OpenCode** | 追加到 `~/.config/opencode/opencode.json` `instructions` 或 `~/AGENTS.md` |
+
+完整的 copy-paste 片段和每个代理的验证提示:
+👉 见[英文 README — Install once, use in every AI agent](README.md#-install-once--use-in-every-ai-agent)
+
+### 通用冒烟测试
+
+在任何代理的聊天中粘贴:
+
+> 使用 cubest 显示当前目录的文件树 —— 顶层目录 × 扩展名 × 大小。
+
+如果代理返回带 `count=…, bytes=…` 的 ASCII 树 —— cubest 已连通。
 
 ## 🚀 常用命令
 

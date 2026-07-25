@@ -50,6 +50,36 @@ cubest --profile file_tree .
 npx cubest --profile file_tree .
 ```
 
+## 🔌 AI エージェントへのインストール
+
+各 harness に対して**2 つの方法**:
+
+- **方法 A — CLI のみ:** バイナリをインストール(`pip install cubest`)
+  し、プロンプトで cubest を明示する。最もシンプル、どこでも動作。
+- **方法 B — スキル / ルールとして(推奨):** さらに harness の
+  **ユーザーグローバル**設定にルールファイルを配置 — プロンプトが
+  一致すれば、エージェントが自ら cubest を選択する。
+
+| Harness | インストールコマンド(方法 B) |
+|---|---|
+| **Claude Code** | `git clone --depth 1 https://github.com/BaryshevS/cubest ~/.claude/skills/cubest` |
+| **Cursor** | `~/.cursor/rules/cubest.mdc` を作成(MDC ルール) |
+| **OpenAI Codex CLI** | `~/.codex/AGENTS.md` にヒントを追加 |
+| **Aider** | `~/.aider/cubest-hint.md` + `~/.aider.conf.yml` に登録 |
+| **Windsurf (Codeium)** | `~/.codeium/windsurf/memories/global_rules.md` に追加 |
+| **Cline (VS Code)** | Settings → Cline → Custom Instructions |
+| **Continue.dev** | `~/.continue/config.json` に customCommand を追加 |
+| **OpenCode** | `~/.config/opencode/opencode.json` の `instructions` または `~/AGENTS.md` に追加 |
+
+完全な copy-paste スニペットと harness ごとの検証プロンプト:
+👉 [英語 README — Install once, use in every AI agent](README.md#-install-once--use-in-every-ai-agent)
+
+**ユニバーサル・スモークテスト** — 任意のエージェントのチャットに貼り付け:
+
+> cubest でこのディレクトリのファイルツリーを表示 — トップディレクトリ × 拡張子 × サイズ。
+
+エージェントが `count=…, bytes=…` 付きの ASCII ツリーを返せば — cubest は繋がっています。
+
 ## ⚡ クイックスタート
 
 ```bash

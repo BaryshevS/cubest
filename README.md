@@ -104,12 +104,24 @@ The `curl` variant runs standalone but needs `PyYAML` for YAML profiles.
 
 ## 🔌 Install once — use in every AI agent
 
-Every block below installs cubest into the **user-global skill space**
-of the harness so it becomes available across *all* your projects,
-not just the current one. No project-scoped copies, no per-repo setup.
+Cubest can be wired into any AI coding agent **two ways**. Pick one per
+harness (or run both):
 
-**Step 0 — the binary itself.** Every harness spawns a shell, so
-`cubest` just needs to be on `$PATH` once:
+- **Variant A — CLI utility only.** Install the binary. The agent runs
+  cubest when *you name it* in the prompt. Simplest, works everywhere,
+  no per-harness config.
+- **Variant B — as a skill / rule (recommended).** Also drop a rule /
+  skill file into the harness's **user-global** config so the agent
+  auto-picks cubest for matching prompts (repo audits, log rollups,
+  CSV pivots) *without you naming it*.
+
+Both variants require Step 0 (the binary). Variant B adds one config
+edit per harness.
+
+### Step 0 — install the cubest binary
+
+Every harness spawns a shell, so `cubest` just needs to be on `$PATH`
+once:
 
 ```bash
 pip install cubest        # PyPI (bundles PyYAML)
@@ -119,10 +131,20 @@ npm install -g cubest     # npm (thin wrapper, delegates to python3)
 
 Verify: `cubest --profile file_tree .` should print an ASCII tree.
 
-### Claude Code — `~/.claude/skills/cubest/`
+Each harness section below shows both variants and a verify prompt.
 
-Claude Code auto-discovers skills in your home directory. One command
-enables cubest in every session on this machine:
+### Claude Code
+
+**Variant A — CLI only.** After Step 0, in any Claude Code session:
+
+> Run `cubest --profile file_tree .` and paste the output.
+
+Claude will invoke the shell tool. Works, but you must name cubest
+explicitly each time.
+
+**Variant B — as a skill (recommended).** Install cubest into
+`~/.claude/skills/cubest/`. Claude auto-loads `SKILL.md` (with the
+`USE WHEN` triggers + 31-profile catalog) and picks cubest on its own:
 
 ```bash
 mkdir -p ~/.claude/skills && \
@@ -130,19 +152,23 @@ mkdir -p ~/.claude/skills && \
     ~/.claude/skills/cubest
 ```
 
-Claude reads `SKILL.md`'s frontmatter (`USE WHEN` + 31-profile catalog)
-and routes to cubest automatically when your prompt matches a trigger.
+Restart the session. Now this prompt picks cubest *without* naming it:
 
-**Verify** — in any Claude Code session:
+> Map this repo — top directories × extension × size.
 
-> Use the cubest skill to map this repo — top directories × extension × size.
+The skill appears in the sidebar as `Skill: cubest`.
 
-Expected: Claude invokes `cubest --profile file_tree .`. The skill
-appears in the sidebar as `Skill: cubest`.
+### Cursor
 
-### Cursor — `~/.cursor/rules/cubest.mdc`
+**Variant A — CLI only.** After Step 0, in Cursor chat:
 
-Cursor loads user-global rules from `~/.cursor/rules/`. Create the file:
+> Use `cubest --profile file_tree .` to map this project structure.
+
+Cursor proposes the shell command and asks for approval.
+
+**Variant B — as a rule (recommended).** Write a user-global MDC rule
+to `~/.cursor/rules/cubest.mdc` so Cursor auto-suggests cubest for
+matching prompts:
 
 ```bash
 mkdir -p ~/.cursor/rules && cat > ~/.cursor/rules/cubest.mdc <<'EOF'
@@ -161,14 +187,23 @@ EOF
 
 **Verify** — in Cursor chat (any repo):
 
-> Map this project structure with cubest — top dirs, extensions, size.
+> Map this project structure — top dirs, extensions, size.
 
-Cursor will propose `cubest --profile file_tree .` and ask to run it.
+Cursor will propose `cubest --profile file_tree .` without you naming it.
 
-### OpenAI Codex CLI — `~/.codex/AGENTS.md`
+### OpenAI Codex CLI
 
-Codex CLI reads `AGENTS.md` from `~/.codex/` (user-global) and merges
-it with any project-level `AGENTS.md`. Global install:
+**Variant A — CLI only.** After Step 0:
+
+```
+codex "run cubest --profile file_tree ."
+```
+
+Codex proposes to execute the shell command, you approve.
+
+**Variant B — as an AGENTS.md hint (recommended).** Codex CLI reads
+`~/.codex/AGENTS.md` (user-global) and merges it with any project-level
+`AGENTS.md`. Add the cubest hint:
 
 ```bash
 mkdir -p ~/.codex && cat >> ~/.codex/AGENTS.md <<'EOF'
@@ -190,15 +225,24 @@ EOF
 **Verify**:
 
 ```
-codex "count lines of code per language with cubest"
+codex "count lines of code per language"
 ```
 
-Codex will propose `cubest --profile loc_counter .`.
+Codex now proposes `cubest --profile loc_counter .` without you
+naming cubest.
 
-### Aider — `~/.aider.conf.yml`
+### Aider
 
-Aider reads `~/.aider.conf.yml` (user-global) plus any local override.
-Point it at a cubest hint that all sessions load:
+**Variant A — CLI only.** After Step 0, in any Aider session:
+
+```
+/run cubest --profile file_tree .
+```
+
+Aider passes the OLAP tree back into its own context.
+
+**Variant B — as a persistent hint (recommended).** Aider reads
+`~/.aider.conf.yml` (user-global). Drop a hint file it always loads:
 
 ```bash
 mkdir -p ~/.aider && cat > ~/.aider/cubest-hint.md <<'EOF'
@@ -216,18 +260,23 @@ read:
 EOF
 ```
 
-**Verify**:
+**Verify** — after restarting Aider:
 
-```
-/run cubest --profile file_tree .
-```
+> Give me a repo overview
 
-Aider passes the tree back into its own context.
+Aider suggests `/run cubest --profile file_tree .` on its own.
 
-### Windsurf (Codeium) — `~/.codeium/windsurf/memories/global_rules.md`
+### Windsurf (Codeium)
 
-Windsurf's Cascade reads user-global memories from
-`~/.codeium/windsurf/memories/global_rules.md`. Add a rule:
+**Variant A — CLI only.** After Step 0, in Cascade chat:
+
+> Use `cubest --profile tech_debt .` to show all TODOs grouped by
+> kind and directory.
+
+Cascade proposes and asks for approval.
+
+**Variant B — as a global memory (recommended).** Windsurf's Cascade
+reads `~/.codeium/windsurf/memories/global_rules.md`. Add cubest hint:
 
 ```bash
 mkdir -p ~/.codeium/windsurf/memories && \
@@ -247,12 +296,19 @@ EOF
 
 > Show me all TODOs in this repo, grouped by kind and directory.
 
-Cascade will propose `cubest --profile tech_debt .`.
+Cascade now proposes `cubest --profile tech_debt .` on its own.
 
-### Cline (VS Code) — VS Code global settings
+### Cline (VS Code)
 
-Cline reads its custom-instructions field from your VS Code user
-settings. Paste the following into
+**Variant A — CLI only.** After Step 0, in any Cline session:
+
+> Use `cubest --profile nginx_access logs/access.log.gz` to show top
+> endpoints by status × p95 latency.
+
+Cline proposes the command and asks for approval.
+
+**Variant B — as custom instructions (recommended).** Cline reads its
+custom-instructions field from your VS Code user settings. Paste into
 **Settings → Cline → Custom Instructions** (or `settings.json`):
 
 ```json
@@ -263,12 +319,20 @@ settings. Paste the following into
 
 **Verify** — any Cline session:
 
-> Use cubest to show top nginx endpoints by status × p95 latency in
-> logs/access.log.gz.
+> Show top nginx endpoints by status × p95 latency in logs/access.log.gz.
 
-### Continue.dev — `~/.continue/config.json`
+Cline now proposes `cubest --profile nginx_access …` on its own.
 
-Continue's config is user-global by default. Add a custom slash-command:
+### Continue.dev
+
+**Variant A — CLI only.** After Step 0, in Continue chat:
+
+> Run `cubest --profile file_tree .` in the terminal and show me the
+> output.
+
+**Variant B — as a slash command (recommended).** Continue's config is
+user-global by default (`~/.continue/config.json`). Add a custom
+slash-command:
 
 ```jsonc
 // ~/.continue/config.json  →  extend the "customCommands" array
@@ -286,6 +350,36 @@ Continue's config is user-global by default. Add a custom slash-command:
 ```
 /cubest map the repository top-level structure
 ```
+
+### OpenCode
+
+**Variant A — CLI only.** After Step 0, in OpenCode chat:
+
+> Use `cubest --profile file_tree .` to map this repo.
+
+**Variant B — as instructions (recommended).** OpenCode reads
+`~/.config/opencode/opencode.json` (user-global) and merges any
+`AGENTS.md`. Add cubest to `instructions`:
+
+```jsonc
+// ~/.config/opencode/opencode.json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "For repo/log/CSV/SDD aggregation, prefer `cubest --profile <name> <path>` over grep+cat chains — 7-22× fewer input tokens. 31 built-in profiles: run `cubest --help`. Docs: https://github.com/BaryshevS/cubest"
+  ]
+}
+```
+
+Alternative: keep the config clean and put the same hint into `~/AGENTS.md`
+— OpenCode auto-loads it.
+
+**Verify** — in any OpenCode session:
+
+> Map this repo — top dirs × extension × size.
+
+OpenCode now proposes `cubest --profile file_tree .` without you
+naming cubest.
 
 ### Any other tool-calling agent
 

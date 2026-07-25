@@ -970,6 +970,57 @@ uv run --with pyyaml cubest.py -p file_tree .   # ad-hoc через uv без в
 Единственная опциональная зависимость — `PyYAML`. Только-JSON-профили работают
 без неё, стандартной библиотеки Python 3.8+ достаточно.
 
+## 🔌 Установка в AI-агенты
+
+**Два варианта** для каждого харднесса:
+
+- **Вариант A — только CLI.** Ставишь бинарь (`pip install cubest`)
+  и явно называешь cubest в промпте. Простейший путь, работает везде,
+  никакой per-harness настройки.
+- **Вариант B — как skill / rule (рекомендуется).** Дополнительно
+  кладёшь rule-файл в **user-global** config харднесса — агент сам
+  выбирает cubest, когда промпт матчится с триггерами, без явного
+  упоминания.
+
+Оба варианта требуют шаг 0 (бинарь). Вариант B — плюс одна правка
+config на харднесс.
+
+### Шаг 0 — установить бинарь
+
+```bash
+pip install cubest        # PyPI (PyYAML в комплекте)
+# или
+npm install -g cubest     # npm (тонкий wrapper, вызывает python3)
+```
+
+Проверка: `cubest --profile file_tree .` печатает ASCII-дерево.
+
+### Вариант B по каждому харднессу (user-global)
+
+| Харднесс | Команда установки |
+|---|---|
+| **Claude Code** | `git clone --depth 1 https://github.com/BaryshevS/cubest ~/.claude/skills/cubest` |
+| **Cursor** | Создать `~/.cursor/rules/cubest.mdc` (MDC-правило) |
+| **OpenAI Codex CLI** | Дописать hint в `~/.codex/AGENTS.md` |
+| **Aider** | `~/.aider/cubest-hint.md` + прописать в `~/.aider.conf.yml` |
+| **Windsurf (Codeium)** | Дописать в `~/.codeium/windsurf/memories/global_rules.md` |
+| **Cline (VS Code)** | Settings → Cline → Custom Instructions |
+| **Continue.dev** | Добавить customCommand в `~/.continue/config.json` |
+| **OpenCode** | Добавить в `~/.config/opencode/opencode.json` `instructions` или `~/AGENTS.md` |
+
+Полные copy-paste сниппеты и verify-промпты по каждому:
+👉 [Английский README — Install once, use in every AI agent](README.md#-install-once--use-in-every-ai-agent)
+
+### Универсальный смоук-тест
+
+Вставь в чат любого агента:
+
+> Используй cubest, чтобы показать file-tree этой директории —
+> топ директорий × расширение × размер.
+
+Если агент возвращает ASCII-дерево с `count=…, bytes=…` — cubest
+подключён и работает.
+
 ## Быстрый старт
 
 ```bash
