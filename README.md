@@ -2,10 +2,12 @@
 
 **English** · [简体中文](README.zh-CN.md) · [Русский](README.ru.md) · [Español](README.es.md) · [日本語](README.ja.md)
 
-> **200× fewer tokens per repo scan.** A single-pass OLAP aggregator that turns
-> any text stream — code, logs, CSV, JSONL, XML, HTML, SDD artefacts — into a
-> compact cube. Built for **Claude Code, Cursor, Codex, Aider, Windsurf, Cline,
-> Continue.dev** and any other AI coding agent that pays per input token.
+> **7-22× fewer tokens per tool response** (measured across 7 real scenarios,
+> reproducible via [`examples/run_all.sh`](examples/run_all.sh)). A single-pass
+> OLAP aggregator that turns any text stream — code, logs, CSV, JSONL, XML,
+> HTML, SDD artefacts — into a compact cube. Built for **Claude Code, Cursor,
+> Codex, Aider, Windsurf, Cline, Continue.dev** and any tool-calling agent that
+> pays per input token.
 
 <p align="left">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License Apache 2.0"></a>
@@ -348,6 +350,28 @@ cubest --profile call_graph src/ -p '{"output":{"format":"echarts","chart_type":
 ```
 </details>
 
+<details><summary>8. OpenAPI / Swagger spec inventory</summary>
+
+```bash
+# Every endpoint across all OpenAPI YAML/JSON specs
+cubest --profile openapi_endpoints ./api/
+
+# Only /admin/* endpoints, output as md-table for a PR comment
+cubest --profile openapi_endpoints ./api/ \
+  -p '{"filters":["path.startswith(\"/admin\")"],"output":{"format":"md_table"}}'
+
+# Fast diff — what endpoints changed between two branches?
+git checkout main && cubest -p openapi_endpoints ./api/ \
+  -p '{"output":{"format":"json"}}' > /tmp/base.json
+git checkout -   && cubest -p openapi_endpoints ./api/ \
+  -p '{"output":{"format":"json"}}' > /tmp/head.json
+diff /tmp/base.json /tmp/head.json
+```
+
+Works on both YAML and JSON specs — no `swagger-cli` / `redocly-cli` /
+`openapi-generator` install needed. Regex over the `paths:` block.
+</details>
+
 ## 💰 Business impact (industry benchmarks)
 
 Figures below are industry benchmarks for observability/AIOps in general
@@ -407,7 +431,7 @@ in your distribution, your documentation, or an "About" / "Credits" /
 
 ## 🗺️ Roadmap
 
-See [TODO.md](TODO.md). Highlights:
+See [ROADMAP.md](ROADMAP.md). Highlights:
 
 - `examples/` directory with self-contained scripts + input data + expected
   output for each cookbook recipe

@@ -291,19 +291,19 @@ class CsvPresetTests(unittest.TestCase):
 
 
 class SeoPresetsTests(unittest.TestCase):
-    HTML = """<!DOCTYPE html><html lang="ru">
+    HTML = """<!DOCTYPE html><html lang="en">
 <head>
-<title>Купить кофе Москва</title>
-<meta name="description" content="Свежая обжарка, доставка по Москве">
-<meta name="keywords" content="кофе, москва, доставка">
+<title>Buy coffee — London</title>
+<meta name="description" content="Fresh roast, next-day delivery in London">
+<meta name="keywords" content="coffee, london, delivery">
 <link rel="canonical" href="https://ex.com/coffee">
-<meta property="og:title" content="Кофе">
+<meta property="og:title" content="Coffee">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">{}</script>
 </head><body>
-<h1>Каталог кофе</h1>
-<h2>Арабика</h2><h2>Робуста</h2>
-<h3>Эфиопия</h3><h3>Колумбия</h3>
+<h1>Coffee catalog</h1>
+<h2>Arabica</h2><h2>Robusta</h2>
+<h3>Ethiopia</h3><h3>Colombia</h3>
 </body></html>"""
 
     def test_html_meta_extraction(self):
@@ -311,12 +311,12 @@ class SeoPresetsTests(unittest.TestCase):
         recs = ext.extract(self.HTML, "coffee.html")
         self.assertEqual(len(recs), 1)
         r = recs[0]
-        self.assertEqual(r["title"], "Купить кофе Москва")
-        self.assertIn("Свежая", r["description"])
-        self.assertEqual(r["lang"], "ru")
+        self.assertEqual(r["title"], "Buy coffee — London")
+        self.assertIn("Fresh", r["description"])
+        self.assertEqual(r["lang"], "en")
         self.assertEqual(r["canonical"], "https://ex.com/coffee")
         self.assertEqual(r["h1_count"], 1)
-        self.assertEqual(r["h1_first"], "Каталог кофе")
+        self.assertEqual(r["h1_first"], "Coffee catalog")
         self.assertEqual(r["h2_count"], 2)
         self.assertEqual(r["h3_count"], 2)
         self.assertEqual(r["has_schema"], 1)
@@ -328,7 +328,7 @@ class SeoPresetsTests(unittest.TestCase):
         levels = [r["level"] for r in recs]
         self.assertEqual(sorted(levels), [1, 2, 2, 3, 3])
         h1 = [r for r in recs if r["level"] == 1][0]
-        self.assertEqual(h1["title"], "Каталог кофе")
+        self.assertEqual(h1["title"], "Coffee catalog")
 
     def test_sitemap_extraction(self):
         xml = """<?xml version="1.0"?>

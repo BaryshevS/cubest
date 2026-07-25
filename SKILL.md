@@ -1,68 +1,72 @@
 ---
 name: cubest
 description: >-
-  USE WHEN нужно быстро получить структурированный срез большой кодовой базы
-  или дерева файлов (роуты, TODO, компоненты, заголовки, структура каталогов)
-  БЕЗ чтения всех файлов в контекст. Возвращает компактное OLAP-дерево или
-  плоский список вместо десятков `cat`/`grep`. Экономит токены на длинных
-  сессиях и больших циклах обработки.
-  Триггеры: "покажи структуру", "сколько где", "найди все X по проекту",
-  "map the codebase", "все endpoint'ы", "все TODO", "все компоненты",
-  "оглавление md", "какие расширения", "куда сложены Y-файлы".
+  USE WHEN you need a structured slice of a large codebase, log stream, CSV
+  export, HTML crawl or SDD artefact catalog WITHOUT reading raw files into
+  the context window. Returns a compact OLAP tree / breadcrumb / CSV / JSON
+  / Mermaid / GraphViz / ECharts HTML instead of dozens of `cat` and `grep`
+  responses. Measured 7-22x fewer tokens per tool response on real
+  scenarios (see examples/). Works with Claude Code, Cursor, Codex, Aider,
+  Windsurf, Cline, Continue.dev.
+  Triggers: "map the codebase", "show project structure", "how many where",
+  "all endpoints", "all TODOs", "count LOC", "nginx log analysis", "MR
+  impact", "SEO audit", "call graph", "disk usage", "sitemap taxonomy",
+  "csv rollup", "map repo", "log aggregation", "onboard this repo".
 ---
 
 # cubest — Single-pass OLAP indexer
 
-Сканирует каталог за один проход, извлекает записи регулярками/пресетами,
-агрегирует в in-memory OLAP-куб и печатает компактное дерево. **Не тянет
-исходники файлов в контекст Claude** — только агрегаты.
+Scans a directory in one pass, extracts records via regex or presets,
+aggregates them into an in-memory OLAP cube, and prints a compact tree.
+**Does NOT pull raw file contents into the context** — only aggregates.
 
-## Когда вызывать (экономия токенов)
+## When to call (token economy)
 
-Используй `cubest` **вместо**:
+Use `cubest` **instead of**:
 
-- цепочки `grep -rn` + `cat` по 20+ файлам, чтобы понять, где что лежит;
-- ручного обхода `ls -R` + `wc -l` по большому дереву;
-- открывания десятка файлов только чтобы «прикинуть, сколько там endpoint'ов /
-  TODO / компонентов»;
-- «загляну в каждый md, чтобы построить оглавление проекта».
+- chains of `grep -rn` + `cat` across 20+ files just to figure out what's
+  where;
+- manual `ls -R` + `wc -l` walks over big trees;
+- opening a dozen files to "get a feel for how many endpoints / TODOs /
+  components there are";
+- "let me open every md just to build a table of contents".
 
-Особенно уместен когда:
+Especially valuable when:
 
-1. **Длинный цикл рефакторинга/аудита** и нужно удержать контекст — вместо
-   чтения файлов держи в контексте компактный индекс.
-2. **Незнакомый монорепо** — первым шагом строим `file_tree` + `code_stats`,
-   получаем карту за один запуск.
-3. **Периодическая сверка** («сколько сейчас TODO?», «какие новые роуты?») —
-   вывод в 20–200 строк вместо тысяч строк `grep`.
-4. **Планирование правок** — прежде чем начать, узнай распределение (сколько
-   файлов затронуто, какие каталоги, какие расширения).
+1. **Long refactor / audit loops** where holding context matters — keep
+   a compact index in the window instead of raw files.
+2. **Unfamiliar monorepo** — first move is `file_tree` + `code_stats`,
+   getting the map in one shot.
+3. **Recurring health checks** ("how many TODOs now?", "any new routes?")
+   — 20-200 lines of output instead of thousands from `grep`.
+4. **Planning changes** — before starting, learn the distribution: how
+   many files affected, which directories, which extensions.
 
-Когда **не** нужен:
+When **not** needed:
 
-- Одиночный поиск в конкретном файле — используй `Read` / `Grep`.
-- Нужен исходник строк, а не агрегат — используй `Grep`/`Read`.
-- Дерево <10 файлов — быстрее прочитать напрямую.
+- Single lookup in a specific file — use `Read` / `Grep`.
+- You need source lines, not an aggregate — use `Grep` / `Read`.
+- Tree smaller than ~10 files — faster to read directly.
 
-## Быстрый старт
+## Quick start
 
 ```bash
-# Дерево проекта: top-каталоги × расширения (без чтения содержимого)
+# Project tree: top dirs x extensions (no content read)
 python .claude/skills/cubest/cubest.py --profile file_tree .
 
-# HTTP-эндпоинты FastAPI/Flask
+# FastAPI/Flask HTTP endpoints
 python .claude/skills/cubest/cubest.py --profile api_routes ./src
 
-# TODO/FIXME/HACK по типам и файлам
+# TODO/FIXME/HACK by kind and file
 python .claude/skills/cubest/cubest.py --profile tech_debt .
 
-# Оглавление md-документации
+# Markdown documentation table of contents
 python .claude/skills/cubest/cubest.py --profile doc_structure ./docs
 ```
 
-## Inline-профили
+## Inline profiles
 
-JSON одной строкой:
+One-line JSON:
 
 ```bash
 python .claude/skills/cubest/cubest.py \
@@ -70,7 +74,7 @@ python .claude/skills/cubest/cubest.py \
   ./src
 ```
 
-YAML через stdin:
+YAML via stdin:
 
 ```bash
 cat <<'EOF' | python .claude/skills/cubest/cubest.py --profile - ./src
@@ -81,7 +85,7 @@ output: {format: compact}
 EOF
 ```
 
-## Формат профиля
+## Profile schema
 
 ```yaml
 name: my_profile              # optional
@@ -89,7 +93,7 @@ description: "..."            # optional
 scan:
   include: ["*.py", "docs/**/*.md"]
   exclude: [".git/", "node_modules/", "*.lock", "!keep.lock"]
-dimensions:                   # порядок = иерархия дерева
+dimensions:                   # order = tree hierarchy
   - kind
   - file
 measures:
@@ -100,131 +104,140 @@ measures:
     field: size
 extract:
   - type: preset
-    preset: paths | funcs | headers | lines
+    preset: paths | funcs | headers | lines | csv | tsv | md_checklist |
+            md_frontmatter | html_meta | html_headings | sitemap | calls
   - type: regex
     pattern: '(?P<status>\d{3})\s+(?P<duration>[0-9.]+)'
     multiline: true
     ignorecase: false
-filters:                      # безопасный eval с len/min/max/any/all
+filters:                      # safe eval with len/min/max/any/all
   - "status >= 200"
   - "'test' not in file.lower()"
 output:
-  format: tree | compact | json
+  format: tree | flat | compact | csv | md_table | yaml | json | xml |
+          dot | mermaid | plantuml | drawio | echarts
   top_n: 15
   min_count: 2
 ```
 
-## Пресеты (`type: preset`)
+## Presets (`type: preset`)
 
-| Preset            | Что даёт (поля записи)                                       | Читает файл?    |
+| Preset            | Fields on each record                                        | Reads file?     |
 |-------------------|--------------------------------------------------------------|-----------------|
-| `paths`           | `dir, basename, name, ext, depth, top, size, path_1..path_5` | нет             |
-| `funcs`           | `kind` (def/class), `name`                                   | да              |
-| `headers`         | `level`, `title` (Markdown)                                  | да              |
-| `lines`           | `line`, `length`                                             | да              |
-| `md_checklist`    | `state` (done/todo), `title`                                 | да (или stream) |
-| `md_frontmatter`  | все `key: value` из YAML-фронтматтера (type, status, phase…) | да (batch)      |
-| `csv` / `tsv`     | все колонки из header-строки CSV/TSV (нормализованные имена) | да (batch)      |
-| `calls`           | пары `(caller, callee)` — approximate call-graph (Python)    | да              |
+| `paths`           | `dir, basename, name, ext, depth, top, size, path_1..path_5` | no              |
+| `funcs`           | `kind, name, parent, depth, lang` (15 languages)             | yes             |
+| `calls`           | `caller, callee, lang` — approximate call graph              | yes             |
+| `headers`         | `level, title` (Markdown)                                    | yes             |
+| `lines`           | `line, length, ext, top, name, blank, comment`               | yes             |
+| `md_checklist`    | `state` (done/todo), `title`                                 | yes (or stream) |
+| `md_frontmatter`  | any `key: value` from YAML frontmatter                       | yes (batch)     |
+| `csv` / `tsv`     | every column from header row (slugged names)                 | yes (batch)     |
+| `html_meta`       | `title, description, canonical, og_*, h1_count, has_schema…` | yes             |
+| `html_headings`   | `level, title` for each H1-H6                                | yes             |
+| `sitemap`         | `url, host, path, section_1..3, priority, lastmod`           | yes             |
 
-`paths` — один record на файл, работает даже для пустых файлов и бинарников;
-идеален для «карты дерева» без чтения контента. Поля `path_1..path_5` — префиксы
-директорий до N-й глубины (`path_2 = "src/api"`), удобны для disk-usage-агрегации.
+`paths` — one record per file, works even for empty/binary files; ideal
+for tree maps without touching content. `path_1..path_5` are directory
+prefixes up to depth N (`path_2 = "src/api"`), useful for disk-usage.
 
-`md_checklist` / `md_frontmatter` — для SDD-артефактов (спецификации, PRD, ADR,
-чеклисты приёмки, каталоги скиллов/агентов).
+`md_checklist` / `md_frontmatter` — SDD artefacts (specs, PRDs, ADRs,
+acceptance checklists, skill / agent catalogs).
 
-## Фильтрация путей (`scan.include` / `scan.exclude`) — gitignore-like
+## Path filters (`scan.include` / `scan.exclude`) — gitignore-like
 
-Правила матчинга паттерна:
+Pattern matching rules:
 
-- `*.py`, `README.*` — glob по basename файла;
-- `docs/**/*.md`, `src/*/api.py` — glob по относительному пути (`**` — любая
-  глубина);
-- `node_modules/`, `.git/`, `*cache*/` — **директория целиком**, пропускается на
-  уровне обхода (быстро);
-- `/README.md` — якорь к корню сканирования;
-- `!pattern` — negation: сохранить, даже если совпало с exclude / отбросить,
-  даже если совпало с include.
+- `*.py`, `README.*` — glob on file basename;
+- `docs/**/*.md`, `src/*/api.py` — glob on relative path (`**` = any depth);
+- `node_modules/`, `.git/`, `*cache*/` — **entire directory**, pruned at
+  walk time (fast);
+- `/README.md` — anchored to scan root;
+- `!pattern` — negation: keep even if it matched exclude / drop even if it
+  matched include.
 
-Дефолтные `exclude` (если не указано своё):
+Default `exclude` (if none specified):
 `.git/ node_modules/ __pycache__/ .venv/ venv/ dist/ build/ .claude/ *.lock *.pyc`.
 
-При переопределении `exclude` в профиле дефолты **заменяются целиком** — не
-забудь добавить нужные обратно.
+When you override `exclude` in a profile, defaults are **fully replaced**
+— re-add the ones you still want.
 
-## Типы мер
+## Measure types
 
-| Type   | Как считает                                    | Rollup                        |
-|--------|------------------------------------------------|-------------------------------|
-| `count`| +1 за каждую запись                            | сумма по детям                |
-| `sum`  | +record[field] за каждую запись                | сумма по детям                |
-| `avg`  | среднее record[field] по всем записям в листе  | weighted avg по count детей   |
+| Type              | How it's computed                                | Rollup                          |
+|-------------------|--------------------------------------------------|---------------------------------|
+| `count`           | +1 per record                                    | sum over children               |
+| `sum`             | +record[field] per record                        | sum over children               |
+| `avg`             | mean of record[field] over records in the leaf   | weighted avg by child counts    |
+| `min` / `max`     | leaf min/max of record[field]                    | recursive min/max               |
+| `p50/p90/p95/p99` | reservoir-sampled percentile (default k=128)     | proportional-resample merge     |
+| `percentile`      | user-defined q (e.g. `q: 0.75`)                  | same                            |
 
-## Форматы вывода
+## Output formats
 
-Текстовые: `tree` (default), `flat` (breadcrumb), `compact`, `csv`, `md_table`
-(`md`/`markdown`), `yaml` (`yml`), `json`, `xml`.
+Text / tabular: `tree` (default), `flat` (breadcrumb), `compact`, `csv`,
+`md_table` (`md`/`markdown`), `yaml` (`yml`), `json`, `xml`.
 
-Диаграммы (dimensions должны быть `[src, dst]` или больше):
+Diagrams (dimensions must be `[src, dst]` or deeper):
 
-- `dot` / `graphviz` — DOT-syntax, рендер через `dot -Tsvg`;
-- `mermaid` / `mmd` — `flowchart LR`, рендерит GitHub/GitLab/Notion/Obsidian;
+- `dot` / `graphviz` — DOT syntax, render with `dot -Tsvg`;
+- `mermaid` / `mmd` — `flowchart LR`, renders on GitHub/GitLab/Notion/Obsidian;
 - `plantuml` / `puml` — `@startuml` component diagram;
 - `drawio` / `diagrams` — draw.io / diagrams.net XML (`File → Import`);
-- `echarts` / `html` — интерактивный standalone-HTML с 6 переключаемыми
-  типами (sunburst / tree / treemap / sankey / graph / bar), CDN + inline-
-  data. Тип выбирается через `output.chart_type: auto|sunburst|...`.
+- `echarts` / `html` — standalone interactive HTML with 6 switchable
+  chart types (sunburst / tree / treemap / sankey / graph / bar), CDN +
+  inline data. Pick chart_type via `output.chart_type: auto|sunburst|...`.
 
-Пример: получить call-graph как Mermaid одной командой —
+Example — get a call graph as Mermaid in one command:
 ```
-python .claude/skills/cubest/cubest.py -p call_graph src/ -p '{"output":{"format":"mermaid","top_n":30}}'
+python .claude/skills/cubest/cubest.py -p call_graph src/ \
+  -p '{"output":{"format":"mermaid","top_n":30}}'
 ```
-или отредактировать `output.format` в профиле `call_graph.yaml`.
 
-## Фильтр по содержимому файлов
+## Content-based file filter
 
-Помимо glob-фильтров пути можно требовать, чтобы файл содержал (или НЕ содержал)
-конкретные regex — префильтр применяется до основной обработки:
+Beyond path globs you can require a file to CONTAIN (or NOT contain)
+specific regexes — a pre-filter applied before the main extraction:
 
 ```yaml
 scan:
-  content_match: ["TODO", "@deprecated"]   # файл должен содержать оба
-  content_not:   ["generated by tool X"]   # и не должен содержать это
-  content_scan_bytes: 65536                # проверять только первые 64 KiB
+  content_match: ["TODO", "@deprecated"]   # file must match both
+  content_not:   ["generated by tool X"]   # and must not match this
+  content_scan_bytes: 65536                # scan only first 64 KiB
 ```
 
-Полезно для disk-usage: «покажи размер только тех папок, где есть файлы с TODO».
+Useful for disk-usage: "show size only for folders that contain TODO files".
 
-## Флаги
+## CLI flags
 
 ```
---profile / -p   built-in имя | путь к файлу | inline JSON/YAML | '-' (stdin)
---verbose / -v   печатать "# Scanned N files" в stderr
-path             корень сканирования (по умолчанию '.')
+--profile / -p    built-in name | file path | inline JSON/YAML | '-' (stdin)
+--files-from / -F stdin/file list of paths (MR/PR workflow with git diff)
+--verbose / -v    print "# scanned N files, M records" on stderr
+path              scan root (default '.')
 ```
 
-## Установка
+## Install
 
-Скрипт зависит только от опциональной PyYAML (для YAML-профилей/YAML-вывода).
-JSON-профили работают без зависимостей.
+The script needs only the standard library. `PyYAML` is optional (for YAML
+profiles / YAML output). JSON profiles work with no dependencies.
 
 ```bash
-pip install -r requirements.txt        # с pip
-uv pip install -r requirements.txt     # с uv
-uv run --with pyyaml cubest.py -p file_tree .   # ad-hoc через uv без венва
+pip install -r requirements.txt        # with pip
+uv pip install -r requirements.txt     # with uv
+uv run --with pyyaml cubest.py -p file_tree .   # ad-hoc via uv, no venv
 ```
 
-## Тесты
+## Tests
 
 ```bash
-python3 .claude/skills/cubest/tests/run_tests.py     # 38 unit-тестов
-python3 .claude/skills/cubest/tests/bench.py         # быстрый нагрузочный
-HEAVY=1 python3 .claude/skills/cubest/tests/bench.py # тяжёлый: 5M records
+python3 .claude/skills/cubest/tests/run_tests.py     # 57 unit tests
+python3 .claude/skills/cubest/tests/bench.py         # quick load test
+HEAVY=1 python3 .claude/skills/cubest/tests/bench.py # heavy: 5M records
 ```
 
-Bench-цели: >100k rec/s на insert, streaming gzip держит **константную память**
-(ΔRSS <200 KiB на 500k строк) — это то, что позволяет обрабатывать
-терабайтные логи без OOM.
+Bench targets: >100k rec/s on insert, gzip streaming keeps
+**constant memory** (ΔRSS <200 KiB per 500k lines) — this is what lets
+terabyte logs process without OOM.
 
-См. [README.md](README.md) для полного списка применений и сравнения с Graphify.
+See [README.md](README.md) for full use cases, cookbook and comparison
+with related tools.
